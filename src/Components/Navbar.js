@@ -2,9 +2,20 @@ import React from 'react'
 
 const Navbar = () => {
   return (
-    <> 
-    <h1  style={{background:"yellow",padding:"18px 28px 18px", fontSize:34,fontFamily:"sans-serif"}}>Food Mania</h1> 
-    </>
+    <navbar style={{
+      background: "#FEC013",
+      padding: "1rem 2rem",
+      fontSize: 24,
+      fontFamily: "sans-serif",
+      position: "fixed",
+      top:0,
+      width: "100%",
+      zIndex: 1000, // Add a z-index to ensure the footer is above other elements
+      opacity:1,
+      color:"black"
+    }}> 
+    Food Mania
+    </navbar>
   )
 }
 

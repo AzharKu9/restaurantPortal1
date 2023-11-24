@@ -3,8 +3,8 @@ import React from 'react';
 export const Login = () => {
   return (
     <>
-      <div className='login template flex justify-center items-center h-screen bg-primary' style={{
-        backgroundImage: `linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8)), url('/image.avif')`,
+      <div className='login template flex justify-center items-center min-h-screen bg-primary mt-8' style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('/image.avif')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
       }}>
@@ -15,26 +15,26 @@ export const Login = () => {
         </div>
 
         <div className="w-1/2">
-          <div className="w-4/5 mx-auto bg-white p-8 rounded-lg">
+          <div className="w-4/5 mx-auto bg-yellow-50 p-8 rounded-lg">
             <form>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Sign In</h3>
+              <h3 className="text-2xl font-semibold mb-4 text-gray-800">Sign In </h3>
               <div className='mb-4'>
-                <label htmlFor="email" className="block text-gray-800">Email</label>
+                <label htmlFor="email" className="block text-gray-800">Email *</label>
                 <input type="email" placeholder='Enter Email' className='form-input w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' />
               </div>
               <div className='mb-4'>
-                <label htmlFor="password" className="block text-gray-800">Password</label>
+                <label htmlFor="password" className="block text-gray-800">Password *</label>
                 <input type="password" placeholder='Enter Password' className='form-input w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' />
               </div>
               <div className='grid mt-4'>
-                <button className="btn btn-primary bg-yellow-600 py-2 rounded-lg">Login</button>
+                <button className="btn btn-primary bg-[#FEC013] py-2 rounded-lg">Login</button>
               </div>
             </form>
           </div>
 
-          <div className='m-auto mt-4 bg-red-500 w-4/5 p-3 rounded-lg text-center'>
-            <button className="btn btn-primary">Sign Up</button>
-            <p>fdsghgfhfghfg</p>
+          <div className='m-auto mt-4 bg-yellow-50 w-4/5 p-3 rounded-lg text-center mb-2'>
+            <p className='py-2 px-2 font-sans text-base'>Let`s build your business together with amazing platform. Where you can increase your business digitally...</p>
+            <button className="btn btn-primary bg-[#FEC013] py-2 rounded-lg w-full my-4">Sign Up</button>
           </div>
         </div>
       </div>
