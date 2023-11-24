@@ -16,7 +16,8 @@ import Login from './Pages/Login';
 import CreateUser from "./Pages/CreateUser";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
-
+import SignUp from './Pages/SignUp';
+import CreateRestaurant from "./Pages/CreateRestaurant";
 
 
 function App({login}) {
@@ -265,7 +266,8 @@ function App({login}) {
     <Navbar/>
     <Routes>
       <Route path="/login" element={<Login/>}/>
-      <Route path="/signup" element={<CreateUser/>}/>
+      <Route path="/signup" element={<SignUp/>}/>
+      <Route path="/createrestaurant" element={<CreateRestaurant/>}/>
       <Route path="/Dashboard" element={<Dashboard/>}/>
     </Routes>
     <Footer/>

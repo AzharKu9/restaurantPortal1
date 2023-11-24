@@ -8,8 +8,6 @@ const Footer = () => {
       textAlign: "center",
       fontSize: 16,
       fontFamily: "sans-serif",
-      position: "fixed",
-      bottom: -0,
       width: "100%",
       zIndex: 1000, // Add a z-index to ensure the footer is above other elements
       opacity:1,
