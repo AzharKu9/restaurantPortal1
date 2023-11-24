@@ -18,6 +18,7 @@ import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import SignUp from './Pages/SignUp';
 import CreateRestaurant from "./Pages/CreateRestaurant";
+import { AuthProvider } from "./context/AuthContext";
 
 
 function App({login}) {
@@ -263,14 +264,16 @@ function App({login}) {
     // </>
   <>
   <Router>
-    <Navbar/>
-    <Routes>
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/signup" element={<SignUp/>}/>
-      <Route path="/createrestaurant" element={<CreateRestaurant/>}/>
-      <Route path="/Dashboard" element={<Dashboard/>}/>
-    </Routes>
-    <Footer/>
+  <AuthProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/createrestaurant" element={<CreateRestaurant />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+        </Routes>
+        <Footer />
+      </AuthProvider>
   </Router>
   </>
     );
