@@ -19,7 +19,7 @@ import Footer from "./Components/Footer";
 import SignUp from './Pages/SignUp';
 import CreateRestaurant from "./Pages/CreateRestaurant";
 import { AuthProvider } from "./context/AuthContext";
-
+import PrivateRoute from './PrivateRoute'
 
 function App({login}) {
   const [cart, setCart] = useState({});
@@ -269,8 +269,10 @@ function App({login}) {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route element={<PrivateRoute/>}>
           <Route path="/createrestaurant" element={<CreateRestaurant />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} /> 
+          </Route>
         </Routes>
         <Footer />
       </AuthProvider>
