@@ -32,20 +32,22 @@ export const AuthProvider = ({children})=>{
           console.log(error);
         }
       };
+
     const login =  async(name  , password)=>{
         const userData = {name:name, password:password}
+        console.log(userData);
         try {
-            const response =  await('',{
+            const res = await fetch('http://localhost:3000/api/auth/resturantsignin',{
                 method:'POST',
                 headers:{
                     "Content-Type":"application/json"
-                },body:JSON.stringify(userData)}
-            )
-            const data = await response.json(); 
+                },body:JSON.stringify(userData)
+            });
+            const data = await res.json(); 
             if (data.success && data.authToken) {
               setUserToken(data.authToken);
               localStorage.setItem('authToken', data.authToken);
-              navigation('/createRestaurant')
+              navigation('/dashboard')
             } else {
               // Todo: You can show a toast or handle the error message in a way that suits your application
               alert(data.message);
@@ -58,20 +60,20 @@ export const AuthProvider = ({children})=>{
         setUserToken(null)
         localStorage.removeItem("authToken")
     }
-    const isLoggedIn = async () => {
-        try {
-          let userToken =  localStorage.getItem("userToken");
-          setUserToken(userToken);
-        } catch (e) {
-          console.log(`some error occured ${e}`);
-        }
-      };
-
+ 
+    const isLoggedIn = () => {
+      try {
+        let userTokenValue = localStorage.getItem("authToken");
+        setUserToken(userTokenValue);
+      } catch (e) {
+        console.log(`some error occurred ${e}`);
+      }
+    };
     useEffect(() => {
         isLoggedIn();
-      }, []);
+      }, [userToken]);
 return(
-    <AuthContext.Provider value={{signup ,login, userToken , logout}}>
+    <AuthContext.Provider value={{signup ,login, userToken , logout , isLoggedIn}}>
         {children}
     </AuthContext.Provider>
 

@@ -11,13 +11,13 @@ export const Login = () => {
   const handleRedirect = () => {
     navigation('/signup')
   }
-
   const handleChange = (e) =>{
     if (e.target.name === 'name')setName(e.target.value)
     if (e.target.name === 'password')setPassword(e.target.value)
   }
 
-  const handleLogin = ()=>{
+  const handleLogin = (e)=>{
+    e.preventDefault()
     if(name.length >=3&&password.length>=7){
       login(name , password)
     }else{
