@@ -4,7 +4,7 @@ import Dashboard from "./Pages/Dashboard";
 import Login from './Pages/Login';
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
-import SignUp from './Pages/SignUp';
+import RestaurantSignUp from './Pages/RestaurantSignUp';
 import CreateRestaurant from "./Pages/CreateRestaurant";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from './PrivateRoute'
@@ -78,8 +78,9 @@ function App() {
   <AuthProvider>
         <Navbar />
         <Routes>
+          <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<RestaurantSignUp/>} />
           <Route element={<PrivateRoute/>}>
           <Route path="/createrestaurant" element={<CreateRestaurant />} />
           <Route path="/dashboard" element={<Dashboard />} /> 
