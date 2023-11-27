@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { AuthContext } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Navigate} from 'react-router-dom';
 
 const SignUp = () => {
-  const { signup } = useContext(AuthContext);
+  const { signup  , userToken} = useContext(AuthContext);
   const navigate = useNavigate();
 
   // Formik initialization
@@ -33,7 +33,9 @@ const SignUp = () => {
       navigate('/Dashboard'); // Change the path as needed
     },
   });
-
+  if (userToken !== null) {
+    return <Navigate to="/dashboard" />;
+  }
   return (
     <>
       <div className='login template flex justify-center items-center min-h-screen bg-primary mt-6' style={{

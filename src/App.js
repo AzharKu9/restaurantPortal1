@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route , Navigate} from "react-router-dom";
 import Dashboard from "./Pages/Dashboard";
 import Login from './Pages/Login';
 import Navbar from "./Components/Navbar";
@@ -78,7 +78,10 @@ function App() {
   <AuthProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Login />} />
+        <Route
+            path="/"
+            element={<Navigate to="/login" />}
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<RestaurantSignUp/>} />
           <Route element={<PrivateRoute/>}>
