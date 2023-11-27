@@ -1,9 +1,9 @@
 import React from 'react'
 
 const CreateRestaurant = () => {
-    return (
+  return (
     <>
-<div className='login template flex justify-center items-center min-h-screen bg-primary mt-6' style={{
+      <div className='login template flex justify-center items-center min-h-screen bg-primary mt-6' style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('/image.avif')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
@@ -19,11 +19,11 @@ const CreateRestaurant = () => {
             <form>
               <h3 className="text-2xl font-semibold mb-4 text-gray-800">Create Food Mania</h3>
               <div className='mb-4'>
-                <label htmlFor="Name" className="block text-gray-800">Name *</label>
+                <label htmlFor="Name" className="block text-gray-800">Restaurant Name *</label>
                 <input type="Name" placeholder='Enter Name' className='form-input w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' />
               </div>
               <div className='mb-4'>
-                <label htmlFor="Phone" className="block text-gray-800">Phone *</label>
+                <label htmlFor="Phone" className="block text-gray-800">Restaurant Phone *</label>
                 <input type="Phone" placeholder='Enter Phone' className='form-input w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' />
               </div>
               <div className='mb-4'>
@@ -34,15 +34,19 @@ const CreateRestaurant = () => {
                 <label htmlFor="password" className="block text-gray-800">Password *</label>
                 <input type="password" placeholder='Enter Password' className='form-input w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' />
               </div>
+              <div className='mb-4'>
+                <label htmlFor="password" className="block text-gray-800">Upload Image (Image must be asthetic)</label>
+                <input type="file" placeholder='Upload File' className='form-input w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' />
+              </div>
               <div className='grid mt-4'>
-                <button  className="btn btn-primary bg-[#FEC013] py-2 rounded-lg">Create Restaurant</button>
+                <button className="btn btn-primary bg-[#FEC013] py-2 rounded-lg">Create Restaurant</button>
               </div>
             </form>
           </div>
         </div>
       </div>
     </>
-    );
+  );
 };
 
 export default CreateRestaurant
