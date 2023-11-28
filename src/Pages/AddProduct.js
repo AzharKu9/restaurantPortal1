@@ -25,7 +25,7 @@ const AddProduct = () => {
   });
 
   return (
-    <div className='container mt-[7%] min-h-screen overflow-y-auto'>
+    <div className='container bg-white min-h-screen overflow-y-auto'>
       <h2 className='text-4xl mt-2 mb-4'>Add Product</h2>
       <form onSubmit={formik.handleSubmit} encType="multipart/form-data" className='mb-4'>
         <div className="mb-3 flex flex-col">

@@ -8,6 +8,7 @@ import RestaurantSignUp from './Pages/RestaurantSignUp';
 import CreateRestaurant from "./Pages/CreateRestaurant";
 import { AuthProvider } from "./context/AuthContext";
 import PrivateRoute from './PrivateRoute'
+import AddProduct from "./Pages/AddProduct";
 
 function App() {
   return (
@@ -86,7 +87,7 @@ function App() {
           <Route path="/signup" element={<RestaurantSignUp/>} />
           <Route element={<PrivateRoute/>}>
           <Route path="/createrestaurant" element={<CreateRestaurant />} />
-          <Route path="/dashboard" element={<Dashboard />} /> 
+          <Route path="/dashboard" element={<Dashboard />} />
           </Route>
         </Routes>
         <Footer />

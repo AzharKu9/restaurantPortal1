@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import AddProduct from './AddProduct';
+import ViewProduct from './ViewProduct';
+import Sidebar from '../Components/Sidebar'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import UpdateProduct from '../Pages/UpdateProduct'
+import DeleteProduct from '../Pages/DeleteProduct'
 
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState('home'); // State to manage selected tab
@@ -9,7 +14,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-white mt-[6%]">
       <div className="flex flex-col w-64 bg-white border-r">
         {/* Sidebar */}
         <div className="p-4 border-b">
@@ -80,7 +85,7 @@ const Dashboard = () => {
         )}
         {selectedTab === 'viewDishes' && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">View Food</h2>
+           <ViewProduct/>
             {/* Add content for Add Product page */}
           </div>
         )}
