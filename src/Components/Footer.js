@@ -9,6 +9,8 @@ const Footer = () => {
       fontSize: 16,
       fontFamily: "sans-serif",
       width: "100%",
+      position:"fixed",
+      bottom:0,
       zIndex: 1000, // Add a z-index to ensure the footer is above other elements
       opacity:1,
       color:'black'

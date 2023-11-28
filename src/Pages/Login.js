@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <>
-      <div className='login template flex justify-center items-center min-h-screen bg-primary mt-8' style={{
+      <div className='login template flex justify-center items-center min-h-screen bg-primary mt-12' style={{
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('/image.avif')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center'
@@ -42,7 +42,7 @@ const Login = () => {
           <p className="text-white text-2xl font-semibold mb-4">Embark on a culinary adventure with Food Mania, where every dish tells a story of flavor and every bite is a chapter of delight! 🍝✨</p>
         </div>
 
-        <div className="w-1/2 mt-[8%]">
+        <div className="w-1/2 mt-[10%]">
           <div className="w-4/5 mx-auto bg-yellow-50 p-8 rounded-lg">
             <form onSubmit={formik.handleSubmit}>
               <h3 className="text-2xl font-semibold mb-4 text-gray-800">Sign In </h3>
@@ -94,7 +94,7 @@ const Login = () => {
             </form>
           </div>
 
-          <div className='m-auto mt-4 bg-yellow-50 w-4/5 p-3 rounded-lg text-center mb-8'>
+          <div className='m-auto mt-4 bg-yellow-50 w-4/5 p-3 rounded-lg text-center mb-[10rem]'>
             <p className='py-2 px-2 font-sans text-base'>Let`s build your business together with amazing platform. Where you can increase your business digitally...</p>
             <button onClick={handleRedirect} className='btn btn-primary bg-[#FEC013] py-2 rounded-lg w-full my-4'>
               Sign Up
