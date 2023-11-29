@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { toast } from 'react-toastify';
 export const AuthContext = createContext("");
 
 export const AuthProvider = ({ children }) => {
@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("authToken", data.authToken);
         navigation("/createRestaurant");
       } else {
-        alert(data.message);
+        toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -47,7 +47,8 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("authToken", data.authToken);
         navigation("/dashboard");
       } else {
-        alert(data.message);
+        toast.error(data.message);
+
       }
     } catch (error) {
       console.log(error);
