@@ -25,14 +25,14 @@ const AddProduct = () => {
   });
 
   return (
-    <div className='container bg-white min-h-screen overflow-y-auto'>
-      <h2 className='text-4xl mt-2 mb-4'>Add Product</h2>
+    <div className='container  min-h-screen max-h-full'>
+      <h2 className='text-4xl mt-2 mb-4'>Add Food</h2>
       <form onSubmit={formik.handleSubmit} encType="multipart/form-data" className='mb-4'>
         <div className="mb-3 flex flex-col">
           <label htmlFor="productname" className="form-label">Food Title</label>
           <input
             type="text"
-            className={`form-control border-2 border-[#FEC013] rounded mt-2 ${formik.touched.foodTitle && formik.errors.foodTitle ? 'border-yellow-500' : ''}`}
+            className={`form-control mt-2 w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out${formik.touched.foodTitle && formik.errors.foodTitle ? 'border-yellow-500' : ''}`}
             id="foodTitle"
             name="foodTitle"
             value={formik.values.foodTitle}
@@ -47,7 +47,7 @@ const AddProduct = () => {
           <label htmlFor="productname" className="form-label">Food Description</label>
           <input
             type="text"
-            className={`form-control border-2 border-[#FEC013] rounded mt-2 ${formik.touched.foodDescription && formik.errors.foodDescription ? 'border-yellow-500' : ''}`}
+            className={`w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out form-control mt-2 ${formik.touched.foodDescription && formik.errors.foodDescription ? 'border-yellow-500' : ''}`}
             id="foodDescription"
             name="foodDescription"
             value={formik.values.foodDescription}
@@ -62,7 +62,7 @@ const AddProduct = () => {
           <label htmlFor="foodQuantity" className="form-label">Food Quantity</label>
           <input
             type="text"
-            className={`form-control border-2 border-[#FEC013] rounded mt-2 ${formik.touched.foodQuantity && formik.errors.foodQuantity ? 'border-yellow-500' : ''}`}
+            className={`form-control rounded mt-2 w-full bg-white  border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${formik.touched.foodQuantity && formik.errors.foodQuantity ? 'border-yellow-500' : ''}`}
             id="foodQuantity"
             name="foodQuantity"
             value={formik.values.foodQuantity}
@@ -77,7 +77,7 @@ const AddProduct = () => {
           <label htmlFor="productname" className="form-label">Food Price</label>
           <input
             type="number"
-            className={`form-control border-2 border-[#FEC013] rounded mt-2 ${formik.touched.price && formik.errors.price ? 'border-yellow-500' : ''}`}
+            className={`form-control border-2 border-[#FEC013] rounded mt-2 w-full bg-white focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out${formik.touched.price && formik.errors.price ? 'border-yellow-500' : ''}`}
             id="price"
             name="price"
             value={formik.values.price}
@@ -93,7 +93,7 @@ const AddProduct = () => {
           <input
             type="file"
             accept="image/*"
-            className={`form-control border-2 border-[#FEC013] rounded mt-2 ${formik.touched.image && formik.errors.image ? 'border-yellow-500' : ''}`}
+            className={`form-control mt-2 w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out ${formik.touched.image && formik.errors.image ? 'border-yellow-500' : ''}`}
             id="image"
             name="image"
             onChange={(event) => formik.setFieldValue('image', event.currentTarget.files[0])}

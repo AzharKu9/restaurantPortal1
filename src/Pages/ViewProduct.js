@@ -5,7 +5,7 @@ const ViewProduct = () => {
   const [modelOpen , setModalOpen] = useState(false)
   return (
     <div className='container max-w-5xl bg-white'>
-      <h2 className='text-4xl mt-2 mb-4'>Add Product</h2>
+      <h2 className='text-4xl mt-2 mb-4'>View Food</h2>
       <hr className='mb-6'></hr>
       <div className=''>
         <div className='h-[30rem] overflow-auto custom-scrollbar'>

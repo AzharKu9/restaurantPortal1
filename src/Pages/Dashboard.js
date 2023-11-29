@@ -68,7 +68,7 @@ const Dashboard = () => {
           </ul>
         </div>
       </div>
-      <div className="flex-1 p-8">
+      <div className="flex-1 h-[120vh] p-8">
         {/* Main Content */}
         {selectedTab === 'home' && (
           <div>
