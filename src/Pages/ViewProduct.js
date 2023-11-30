@@ -103,7 +103,7 @@ const ViewProduct = () => {
       </div>
 
 
-      {modelOpen && <ModalUpdate setModalOpen={setModalOpen} />}
+      {modelOpen && <ModalUpdate setModalOpen={setModalOpen}/>}
     </div>
   );
 };

@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { AuthContext } from "../context/AuthContext";
+import { toast } from 'react-toastify';
 
-const ModalUpdate = ({ setModalOpen }) => {
+
+const ModalUpdate = ({ setModalOpen  }) => {
+  const {userToken} = useContext(AuthContext)
   const initialValues = {
     foodTitle: "",
     foodDescription: "",
@@ -19,16 +23,40 @@ const ModalUpdate = ({ setModalOpen }) => {
     foodOffer: Yup.string().required("Required"),
   });
 
-  const onSubmit = (values, { resetForm }) => {
-    // Handle your form submission here
-    // You can access form values using the 'values' parameter
-    console.log("Form submitted:", values);
+  const onSubmit = async(values) => {
+    
+      try {
+        // Create FormData object for handling file upload
+        const formData = new FormData();
+        formData.append('foodTitle', values.foodTitle);
+        formData.append('foodDescription', values.foodDescription);
+        formData.append('foodQuantity', values.foodQuantity);
+        formData.append('foodOffer', values.foodOffer);
+        formData.append('price', values.price);
+        formData.append('image', values.image);
+        const response = await fetch(`http://localhost:3000/api/addw/updatefood `, {
+          method: 'POST',
+          headers: {
+            'authToken': userToken,
+          },
+          body: formData,  // Use FormData for file uploads
+        });
+    
+        const data = await response.json();
+    
+        if (data.success) {
+          toast.success(data.message);
+          formik.resetForm()
 
-    // Reset the form after submission
-    resetForm();
-
-    // Close the modal
-    setModalOpen(false);
+        } else {
+          toast.error(data.message || 'Failed to add food.');
+        }
+      } catch (error) {
+        console.log(error);
+        console.error('Error adding food:', error);
+        // Log the specific error message from the server (if available)
+      }
+    setModalOpen(false)
   };
 
   const formik = useFormik({

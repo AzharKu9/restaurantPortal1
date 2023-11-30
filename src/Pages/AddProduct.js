@@ -10,15 +10,15 @@ const  {userToken} = useContext(AuthContext)
     initialValues: {
       foodTitle: '',
       foodDescription: '',
-      foodQuantity: 0,
+      foodQuantity: '',
       price: 0,
-      foodOffer:0,
+      foodOffer:'',
       image: null, // New field for image upload
     },
     validationSchema: Yup.object({
       foodTitle: Yup.string().required('Food title is required'),
       foodDescription: Yup.string().required('Food Description is required'),
-      foodQuantity: Yup.number().required('Quantity is required').positive('Quantity must be positive'),
+      foodQuantity: Yup.string().required('Quantity is required'),
       foodOffer: Yup.string(),
       price: Yup.number().required('Price is required').positive('Price must be positive'),
       image: Yup.mixed().required('Image is required'), // Validation for image upload
