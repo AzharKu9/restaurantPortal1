@@ -102,11 +102,10 @@ main{
 
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #FEC013 white;
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {

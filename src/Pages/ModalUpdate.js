@@ -5,59 +5,66 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 
 
-const ModalUpdate = ({ setModalOpen  }) => {
-  const {userToken} = useContext(AuthContext)
+const ModalUpdate = ({ setModalOpen, foodItem }) => {
+  
+  const { userToken } = useContext(AuthContext)
   const initialValues = {
-    foodTitle: "",
-    foodDescription: "",
-    foodQuantity: "",
-    foodPrice: "",
-    foodOffer: "",
+    foodTitle: foodItem.foodTitle || "",
+    foodDescription: foodItem.foodDescription || "",
+    foodQuantity: foodItem.foodQuantity || "",
+    price: foodItem.price || 0,
+    foodOffer: foodItem.foodOffer || "",
+    image: foodItem.image || null,
   };
 
   const validationSchema = Yup.object({
     foodTitle: Yup.string().required("Required"),
     foodDescription: Yup.string().required("Required"),
     foodQuantity: Yup.string().required("Required"),
-    foodPrice: Yup.string().required("Required"),
+    price: Yup.number().required("Required").positive("Price cannot be negative"),
     foodOffer: Yup.string().required("Required"),
+    image: Yup.mixed().required("Required"),
   });
 
   const onSubmit = async(values) => {
-    
-      try {
-        // Create FormData object for handling file upload
-        const formData = new FormData();
-        formData.append('foodTitle', values.foodTitle);
-        formData.append('foodDescription', values.foodDescription);
-        formData.append('foodQuantity', values.foodQuantity);
-        formData.append('foodOffer', values.foodOffer);
-        formData.append('price', values.price);
-        formData.append('image', values.image);
-        const response = await fetch(`http://localhost:3000/api/addw/updatefood `, {
-          method: 'POST',
-          headers: {
-            'authToken': userToken,
-          },
-          body: formData,  // Use FormData for file uploads
-        });
-    
-        const data = await response.json();
-    
-        if (data.success) {
-          toast.success(data.message);
-          formik.resetForm()
-
-        } else {
-          toast.error(data.message || 'Failed to add food.');
-        }
-      } catch (error) {
-        console.log(error);
-        console.error('Error adding food:', error);
-        // Log the specific error message from the server (if available)
+    try {
+      const formData = new FormData();
+      formData.append('foodTitle', values.foodTitle);
+      formData.append('foodDescription', values.foodDescription);
+      formData.append('foodQuantity', values.foodQuantity);
+      formData.append('foodOffer', values.foodOffer);
+      formData.append('price', values.price);
+      formData.append('image', values.image);
+      console.log('Request URL:', `http://localhost:3000/api/add/updatefood/${foodItem._id}`);
+      const response = await fetch(`http://localhost:3000/api/add/updatefood/${foodItem._id}`, {
+        method: 'PUT',
+        headers: {
+          'authToken': userToken,
+        },
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
       }
-    setModalOpen(false)
+  
+      const contentType = response.headers.get('content-type');
+      const data = contentType && contentType.includes('application/json') ? await response.json() : await response.text();
+  
+      if (data.success) {
+        toast.success(data.message);
+        formik.resetForm();
+      } else {
+        toast.error(data.message || 'Failed to update food.');
+      }
+    } catch (error) {
+      console.log(error);
+      console.error('Error updating food:', error);
+    }
+    setModalOpen(false);
   };
+  
+  
 
   const formik = useFormik({
     initialValues,
@@ -168,16 +175,16 @@ const ModalUpdate = ({ setModalOpen  }) => {
                   </label>
                   <input
                     type="number"
-                    id="foodPrice"
-                    name="foodPrice"
+                    id="price"
+                    name="price"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.foodPrice}
+                    value={formik.values.price}
                     className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
-                  {formik.touched.foodPrice && formik.errors.foodPrice ? (
+                  {formik.touched.price && formik.errors.price ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.foodPrice}
+                      {formik.errors.price}
                     </div>
                   ) : null}
 
@@ -215,10 +222,12 @@ const ModalUpdate = ({ setModalOpen  }) => {
                   <input
                     type="file"
                     id="image"
+                    accept="image/*"
                     name="image"
-                    onChange={formik.handleChange}
+                    onChange={(event) => {
+                      formik.setFieldValue('image', event.currentTarget.files[0]);
+                    }}
                     onBlur={formik.handleBlur}
-                    value={formik.values.image}
                     className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
                   {formik.touched.image && formik.errors.image ? (
@@ -227,22 +236,23 @@ const ModalUpdate = ({ setModalOpen  }) => {
                     </div>
                   ) : null}
                 </div>
+
                 {/*footer*/}
-            <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b ">
-              <button
-                type="button"
-                onClick={() => setModalOpen(false)}
-                className="text-black background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              >
-                Close
-              </button>
-              <button
-                type="submit"
-                className="bg-[#FEC013] text-black active:bg-yellow-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none hover:bg-yellow-400 focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-              >
-                Update
-              </button>
-            </div>
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b ">
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(false)}
+                    className="text-black background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-[#FEC013] text-black active:bg-yellow-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none hover:bg-yellow-400 focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  >
+                    Update
+                  </button>
+                </div>
               </form>
             </div>
           </div>

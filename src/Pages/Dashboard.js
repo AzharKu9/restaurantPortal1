@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import AddProduct from './AddProduct';
 import ViewProduct from './ViewProduct';
-import Sidebar from '../Components/Sidebar'
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import UpdateProduct from '../Pages/UpdateProduct'
-import DeleteProduct from '../Pages/DeleteProduct'
+import GetOrder from './GetOrder';
 
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState('home'); // State to manage selected tab
@@ -14,10 +11,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex h-screen bg-white mt-[6%]">
-      <div className="flex flex-col w-64 bg-white border-r">
+    <div className="flex h-screen bg-white mt-[5%] flex-row">
+      <div className="flex flex-col w-1/5 h-screen bg-yellow-50 border-r fixed">
         {/* Sidebar */}
-        <div className="p-4 border-b">
+        <div className="p-4 mt-2 border-b" >
           <h1 className="text-lg font-bold">Dashboard</h1>
         </div>
         <div className="p-4">
@@ -26,7 +23,7 @@ const Dashboard = () => {
             <li
               onClick={() => changeTab('home')}
               className={`cursor-pointer py-2 ${
-                selectedTab === 'home' ? 'text-blue-500 font-bold' : ''
+                selectedTab === 'home' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
               }`}
             >
               Home
@@ -34,7 +31,7 @@ const Dashboard = () => {
             <li
               onClick={() => changeTab('addProduct')}
               className={`cursor-pointer py-2 ${
-                selectedTab === 'addProduct' ? 'text-blue-500 font-bold' : ''
+                selectedTab === 'addProduct' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
               }`}
             >
             Add Dishes
@@ -42,33 +39,24 @@ const Dashboard = () => {
             <li
               onClick={() => changeTab('viewDishes')}
               className={`cursor-pointer py-2 ${
-                selectedTab === 'viewDishes' ? 'text-blue-500 font-bold' : ''
+                selectedTab === 'viewDishes' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
               }`}
             >
               View Dishes
             </li>
             <li
-              onClick={() => changeTab('updateDishes')}
+              onClick={() => changeTab('getOrder')}
               className={`cursor-pointer py-2 ${
-                selectedTab === 'updateDishes' ? 'text-blue-500 font-bold' : ''
+                selectedTab === 'getOrder' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
               }`}
             >
-              Update Food
+              Get Order
             </li>
-            <li
-              onClick={() => changeTab('deleteDishes')}
-              className={`cursor-pointer py-2 ${
-                selectedTab === 'deleteDishes' ? 'text-blue-500 font-bold' : ''
-              }`}
-            >
-              Delete Food
-            </li>
-
             {/* Add more navigation items as needed */}
           </ul>
         </div>
       </div>
-      <div className="flex-1 h-[120vh] p-8">
+      <div className="flex-1 h-[120vh] w-4/5 p-8  ml-[20%]">
         {/* Main Content */}
         {selectedTab === 'home' && (
           <div>
@@ -79,8 +67,6 @@ const Dashboard = () => {
         {selectedTab === 'addProduct' && (
           <div>
             <AddProduct/>
-            {/* <h2 className="text-2xl font-bold mb-4">Update Food</h2> */}
-            {/* Add analytics content */}
           </div>
         )}
         {selectedTab === 'viewDishes' && (
@@ -89,25 +75,13 @@ const Dashboard = () => {
             {/* Add content for Add Product page */}
           </div>
         )}
-        {selectedTab === 'deleteProduct' && (
+        {selectedTab === 'getOrder' && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">Delete Food</h2>
+            <GetOrder/>
             {/* Add content for Delete Product page */}
           </div>
         )}
-        {selectedTab === 'updateDishes' && (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">updateDishes</h2>
-            {/* Add content for View Product page */}
-          </div>
-        )}
-        {selectedTab === 'invoiceProduct' && (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Invoice </h2>
-            {/* Add content for Invoice Product page */}
-          </div>
-        )}
-        {/* Add content for other tabs */}
+
       </div>
     </div>
   );
