@@ -10,33 +10,30 @@ const ViewProduct = () => {
   const [food, setFood] = useState([])
   const { userToken } = useContext(AuthContext)
 
-  useEffect(() => {
-    console.log('Component mounted');
-    const fetchData = async () => {
-      try {
-        console.log('Fetching data...');
-        let res = await fetch('http://localhost:3000/api/add/viewfood', {
-          method: 'GET',
-          headers: {
-            'authtoken': userToken
-          }
-        });
-  
-        let data = await res.json();
-  
-        if (data.success) {
-          setFood(data.foodItems);
-        } else {
-          
+  const fetchData = async () => {
+    try {
+      console.log('Fetching data...');
+      let res = await fetch('http://localhost:3000/api/add/viewfood', {
+        method: 'GET',
+        headers: {
+          'authtoken': userToken
         }
-      } catch (error) {
-        console.error('Error fetching food:', error);
-        toast.error('Failed to fetch food items. Please try again.');
+      });
+
+      let data = await res.json();
+      if (data.success) {
+        setFood(data.foodItems);
+      } else {
+        
       }
-    };
-  
-    fetchData(); // Call the function once when the component mounts
-  }, []); // Empty dependency array to ensure it runs only once
+    } catch (error) {
+      console.error('Error fetching food:', error);
+      toast.error('Failed to fetch food items. Please try again.');
+    }
+  };
+  useEffect(() => {
+    fetchData(); 
+  }, []); 
 
   const handleDelete = async (id) => {
     console.log(id);

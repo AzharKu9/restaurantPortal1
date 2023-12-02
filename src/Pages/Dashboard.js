@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddProduct from './AddProduct';
 import ViewProduct from './ViewProduct';
 import GetOrder from './GetOrder';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
+ 
   const [selectedTab, setSelectedTab] = useState('home'); // State to manage selected tab
 
   const changeTab = (tabName) => {
     setSelectedTab(tabName);
   };
-
+ 
+  
   return (
     <div className="flex h-screen bg-white mt-[5%] flex-row">
       <div className="flex flex-col w-1/5 h-screen bg-yellow-50 border-r fixed">
@@ -52,6 +55,7 @@ const Dashboard = () => {
             >
               Get Order
             </li>
+        
             {/* Add more navigation items as needed */}
           </ul>
         </div>
