@@ -3,6 +3,9 @@ import { Bar } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { FaShoppingBag ,FaHandHoldingUsd } from "react-icons/fa";
+import { MdOutlinePendingActions } from "react-icons/md";
+import { TbChecklist } from "react-icons/tb";
 
 const Home = () => {
 
@@ -68,18 +71,23 @@ const Home = () => {
         <div className='h-[5%] w-[22%] m-2 mx-4 border-2 border-solid border-[#FEC013] rounded-md bg-yellow-100 p-4'>
           <h1 className='text-sm font-semibold'>Total Order</h1>
           <span className='text-2xl font-bold text-[#FEC013]'>50 Order</span>
+          <FaShoppingBag className='text-[#FEC013] text-2xl float-right' />
         </div>
         <div className='h-[5%] w-[22%] m-2 border-2 border-solid border-[#FEC013] rounded-md bg-yellow-100 p-4'>
           <h1 className='text-sm font-semibold'>Total Earning</h1>
           <span className='text-2xl font-bold text-[#FEC013]'>200000 Rs</span>
+          <FaHandHoldingUsd className='text-[#FEC013] text-2xl float-right'/>
         </div>
         <div className='h-[5%] w-[22%] m-2 border-2 border-solid border-[#FEC013] rounded-md bg-yellow-100 p-4'>
           <h1 className='text-sm font-semibold'>Total Pending Order</h1>
           <span className='text-2xl font-bold text-[#FEC013]'>10 Order</span>
+          <MdOutlinePendingActions className='text-[#FEC013] text-2xl float-right'/>
         </div>
         <div className='h-[5%] w-[23%] m-2 border-2 border-solid border-[#FEC013] rounded-md bg-yellow-100 p-4'>
           <h1 className='text-sm font-semibold'>Total Complete Order</h1>
           <span className='text-2xl font-bold text-[#FEC013]'>40 Orders</span>
+          <TbChecklist className='text-[#FEC013] text-2xl float-right'/>
+
         </div>
       </div>
       <div className=' mt-20 h-[35vh]'>
