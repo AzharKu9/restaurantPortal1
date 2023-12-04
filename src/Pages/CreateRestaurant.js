@@ -12,6 +12,7 @@ const CreateRestaurant = () => {
   const formik = useFormik({
     initialValues: {
       restaurantName: '',
+      restaurantDescription:'',
       restaurantAddress: '',
       restaurantPhone: '',
       restaurantEmail: '',
@@ -20,6 +21,7 @@ const CreateRestaurant = () => {
     },
     validationSchema: Yup.object({
       restaurantName: Yup.string().min(4, 'Must be at least 5 characters').required('Required'),
+      restaurantDescription: Yup.string().min(12, 'Must be at least 5 characters').required('Required'),
       restaurantAddress: Yup.string().min(11, 'Must be at least 12 characters').required('Required'),
       restaurantPhone: Yup.string().min(10, 'Number is not valid').required('Required'),
       restaurantEmail: Yup.string().email('Invalid restaurantEmail restaurantAddress').required('Restaurant restaurantEmail is required'),
@@ -30,6 +32,7 @@ const CreateRestaurant = () => {
         // Create FormData object for handling file upload
         const formData = new FormData();
         formData.append('restaurantName', values.restaurantName);
+        formData.append('restaurantDescription', values.restaurantDescription);
         formData.append('restaurantAddress', values.restaurantAddress);
         formData.append('restaurantPhone', values.restaurantPhone);
         formData.append('restaurantEmail', values.restaurantEmail);
@@ -87,7 +90,7 @@ const CreateRestaurant = () => {
               </div>
               <div className='mb-4'>
                 <label htmlFor="Name" className="block text-gray-800">Restaurant Description *</label>
-                <input type="Name" placeholder='Enter description' className='form-input w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' name='name' value={formik.values.restaurantDescription} onChange={formik.handleChange} />
+                <input type="text" placeholder='Enter description' className='form-input w-full py-2 px-3 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500' name='restaurantDescription' value={formik.values.restaurantDescription} onChange={formik.handleChange} />
                 {formik.touched.restaurantDescription && formik.errors.restaurantDescription ? (
                   <div className="text-yellow-600">{formik.errors.restaurantDescription}</div>
                 ) : null}
