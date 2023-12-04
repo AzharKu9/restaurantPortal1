@@ -33,6 +33,7 @@ const  {userToken} = useContext(AuthContext)
         formData.append('foodOffer', values.foodOffer);
         formData.append('price', values.price);
         formData.append('image', values.image);
+        
         const response = await fetch('http://localhost:3000/api/add/addfood', {
           method: 'POST',
           headers: {
@@ -61,6 +62,7 @@ const  {userToken} = useContext(AuthContext)
   return (
     <div className='container  min-h-screen max-h-full'>
       <h2 className='text-4xl mt-2 mb-4'>Add Food</h2>
+      <hr className='mb-6'></hr>
       <form onSubmit={formik.handleSubmit} encType="multipart/form-data" className='mb-4'>
         <div className="mb-3 flex flex-col">
           <label htmlFor="productname" className="form-label">Food Title</label>

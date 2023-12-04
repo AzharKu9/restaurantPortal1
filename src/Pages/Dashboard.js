@@ -3,6 +3,7 @@ import AddProduct from './AddProduct';
 import ViewProduct from './ViewProduct';
 import GetOrder from './GetOrder';
 import { useNavigate } from 'react-router-dom';
+import Home from './Home';
 
 const Dashboard = () => {
  
@@ -64,7 +65,7 @@ const Dashboard = () => {
         {/* Main Content */}
         {selectedTab === 'home' && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">Home</h2>
+            <Home/>
             {/* Add home content */}
           </div>
         )}
