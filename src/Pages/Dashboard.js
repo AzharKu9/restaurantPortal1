@@ -4,6 +4,7 @@ import ViewProduct from './ViewProduct';
 import GetOrder from './GetOrder';
 import { useNavigate } from 'react-router-dom';
 import Home from './Home';
+import Setting from './Setting';
 
 const Dashboard = () => {
  
@@ -56,7 +57,22 @@ const Dashboard = () => {
             >
               Get Order
             </li>
-        
+            <li
+              onClick={() => changeTab('setting')}
+              className={`cursor-pointer py-2 ${
+                selectedTab === 'setting' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
+              }`}
+            >
+              Setting
+            </li>
+            <li
+              onClick={() => changeTab('logout')}
+              className={`cursor-pointer py-2 ${
+                selectedTab === 'logout' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
+              }`}
+            >
+              Logout
+            </li>
             {/* Add more navigation items as needed */}
           </ul>
         </div>
@@ -83,6 +99,12 @@ const Dashboard = () => {
         {selectedTab === 'getOrder' && (
           <div>
             <GetOrder/>
+            {/* Add content for Delete Product page */}
+          </div>
+        )}
+        {selectedTab === 'setting' && (
+          <div>
+            <Setting/>
             {/* Add content for Delete Product page */}
           </div>
         )}
