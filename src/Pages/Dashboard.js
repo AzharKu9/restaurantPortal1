@@ -9,7 +9,7 @@ import { Navigate} from 'react-router-dom';
 const Dashboard = () => {
 
   const [selectedTab, setSelectedTab] = useState('home'); // State to manage selected tab
-
+console.log("Waas");
   const changeTab = (tabName) => {
     setSelectedTab(tabName);
   };
