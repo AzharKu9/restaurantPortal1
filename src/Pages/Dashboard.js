@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AddProduct from './AddProduct';
 import ViewProduct from './ViewProduct';
 import GetOrder from './GetOrder';
-import { useNavigate } from 'react-router-dom';
 import Home from './Home';
 import Setting from './Setting';
+import { Navigate} from 'react-router-dom';
 
 const Dashboard = () => {
- 
+
   const [selectedTab, setSelectedTab] = useState('home'); // State to manage selected tab
 
   const changeTab = (tabName) => {
     setSelectedTab(tabName);
   };
- 
-  
+  const handleLogout = ()=>{
+      localStorage.removeItem("authToken")
+      return <Navigate to="/login" />;
+    
+  }
+
+
   return (
     <div className="flex h-screen bg-white mt-[5%] flex-row">
       <div className="flex flex-col w-1/5 h-screen bg-yellow-50 border-r fixed">
@@ -27,84 +32,74 @@ const Dashboard = () => {
           <ul>
             <li
               onClick={() => changeTab('home')}
-              className={`cursor-pointer py-2 ${
-                selectedTab === 'home' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
-              }`}
+              className={`cursor-pointer py-2 ${selectedTab === 'home' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
+                }`}
             >
               Home
             </li>
             <li
               onClick={() => changeTab('addProduct')}
-              className={`cursor-pointer py-2 ${
-                selectedTab === 'addProduct' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
-              }`}
+              className={`cursor-pointer py-2 ${selectedTab === 'addProduct' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
+                }`}
             >
-            Add Dishes
+              Add Dishes
             </li>
             <li
               onClick={() => changeTab('viewDishes')}
-              className={`cursor-pointer py-2 ${
-                selectedTab === 'viewDishes' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
-              }`}
+              className={`cursor-pointer py-2 ${selectedTab === 'viewDishes' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
+                }`}
             >
               View Dishes
             </li>
             <li
               onClick={() => changeTab('getOrder')}
-              className={`cursor-pointer py-2 ${
-                selectedTab === 'getOrder' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
-              }`}
+              className={`cursor-pointer py-2 ${selectedTab === 'getOrder' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
+                }`}
             >
               Get Order
             </li>
             <li
               onClick={() => changeTab('setting')}
-              className={`cursor-pointer py-2 ${
-                selectedTab === 'setting' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
-              }`}
+              className={`cursor-pointer py-2 ${selectedTab === 'setting' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
+                }`}
             >
               Setting
             </li>
-            <li
-              onClick={() => changeTab('logout')}
-              className={`cursor-pointer py-2 ${
-                selectedTab === 'logout' ? 'text-black ml-[2px] pl-2 font-bold bg-[#fbb800] rounded-md' : ''
-              }`}
-            >
-              Logout
-            </li>
             {/* Add more navigation items as needed */}
           </ul>
+        <div className='absolute left-0 bg-[#FEC013] bottom-32 py-2 w-full rounded-sm flex justify-center'>
+          <button onClick={handleLogout} className='font-semibold'>Logout</button>
+        </div>
         </div>
       </div>
       <div className="flex-1 h-[120vh] w-4/5 p-8  ml-[20%]">
         {/* Main Content */}
         {selectedTab === 'home' && (
           <div>
-            <Home/>
+            <Home />
             {/* Add home content */}
           </div>
         )}
         {selectedTab === 'addProduct' && (
           <div>
-            <AddProduct/>
+            <AddProduct />
           </div>
         )}
         {selectedTab === 'viewDishes' && (
           <div>
-           <ViewProduct/>
+            <ViewProduct />
             {/* Add content for Add Product page */}
           </div>
         )}
         {selectedTab === 'getOrder' && (
           <div>
-            <GetOrder/>
+            <GetOrder />
             {/* Add content for Delete Product page */}
           </div>
         )}
         {selectedTab === 'setting' && (
           <div>
-            <Setting/>
+            <Setting />
             {/* Add content for Delete Product page */}
           </div>
         )}
