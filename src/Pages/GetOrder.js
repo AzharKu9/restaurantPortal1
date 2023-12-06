@@ -9,7 +9,7 @@ const GetOrder = () => {
       <hr className='mb-6'></hr>
       <table className="w-full border-collapse border">
   <thead>
-    <tr className="bg-yellow-300">
+    <tr className="bg-[#FEC013]">
       <th className="p-2 border">Order No</th>
       <th className="p-2 border">Food Title</th>
       <th className="p-2 border">Food Quantity</th>

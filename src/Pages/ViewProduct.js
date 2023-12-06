@@ -12,8 +12,7 @@ const ViewProduct = () => {
 
   const fetchData = async () => {
     try {
-      console.log('Fetching data...');
-      let res = await fetch('http://localhost:3000/api/add/viewfood', {
+      let res = await fetch(`http://localhost:3000/api/add/viewfood`, {
         method: 'GET',
         headers: {
           'authtoken': userToken
@@ -36,7 +35,6 @@ const ViewProduct = () => {
   }, []); 
 
   const handleDelete = async (id) => {
-    console.log(id);
     let res = await fetch(`http://localhost:3000/api/add/deletefood/${id}`, {
       method: "DELETE",
       headers: {
@@ -62,11 +60,11 @@ const ViewProduct = () => {
           return (
             <div key={index} className='h-1/3 w-[30%] mt-4 mx-3 rounded-md shadow-lg shadow-gray-400' >
               <img src='./image.avif' alt={item.foodTitle} />
-              <h2 className='px-3 py-1 mt-4 text-base font-sans font-semibold'><strong>Food Title:</strong> {item.foodTitle}</h2>
-              <p className='px-3 py-1 text-base font-sans font-semibold'> <strong>Food Description:</strong> {item.foodDescription}</p>
-              <h2 className='px-3 py-1 text-base font-sans font-semibold'><strong>Food Price:</strong> {item.price} Rs.</h2>
-              <h2 className='px-3 py-1 text-base font-sans font-semibold'><strong>Food Quantity:</strong> {item.foodQuantity}</h2>
-              <h2 className='px-3 py-1 text-base font-sans font-semibold'><strong>Food Offer</strong> {item.foodOffer}</h2>
+              <h2 className='px-3 py-1 mt-4 text-base font-sans font-semibold'>{item.foodTitle}</h2>
+              <p className='px-3 py-1 text-base font-sans font-semibold'>{item.foodDescription}</p>
+              <h2 className='px-3 py-1 text-base font-sans font-semibold'>{item.price} Rs.</h2>
+              <h2 className='px-3 py-1 text-base font-sans font-semibold'> {item.foodQuantity}</h2>
+              <h2 className='px-3 py-1 text-base font-sans font-semibold'>{item.foodOffer}</h2>
               <div className='my-2 mx-2'>
                 <button onClick={() => {
                   setModalOpen(true);
