@@ -35,7 +35,7 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
       formData.append('foodOffer', values.foodOffer);
       formData.append('price', values.price);
       formData.append('image', values.image);
-      console.log('Request URL:', `http://localhost:3000/api/add/updatefood/${foodItem._id}`);
+      // console.log('Request URL:', `http://localhost:3000/api/add/updatefood/${foodItem._id}`);
       const response = await fetch(`http://localhost:3000/api/add/updatefood/${foodItem._id}`, {
         method: 'PUT',
         headers: {

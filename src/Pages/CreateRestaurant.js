@@ -46,7 +46,6 @@ const CreateRestaurant = () => {
         });
     
         const data = await response.json();
-    
         if (data.success) {
           toast.success(data.message);
           formik.resetForm();
@@ -72,7 +71,7 @@ const CreateRestaurant = () => {
         backgroundPosition: 'center'
       }}>
 
-        <div className="w-1/2 mt-[5%] p-8 flex flex-col">
+        <div className="w-1/2  p-8 flex flex-col">
           <h1 className="text-white text-4xl font-semibold mb-4">Food Mania Restaurant Creation</h1>
           <p className="text-white text-2xl font-semibold mb-4">Embark on a culinary adventure with Food Mania, where every dish tells a story of flavor and every bite is a chapter of delight! 🍝✨</p>
         </div>
