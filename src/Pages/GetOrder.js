@@ -11,6 +11,7 @@ const GetOrder = () => {
   <thead>
     <tr className="bg-[#FEC013]">
       <th className="p-2 border">Order No</th>
+      <th className="p-2 border">Customer Id</th>
       <th className="p-2 border">Food Title</th>
       <th className="p-2 border">Food Quantity</th>
       <th className="p-2 border">Food Price</th>
@@ -21,8 +22,9 @@ const GetOrder = () => {
     </tr>
   </thead>
   <tbody>
-    <tr className="bg-gray-50">
+    <tr className="">
       <td className="p-2 border">1</td>
+      <td className="p-2 border">01</td>
       <td className="p-2 border">Burger</td>
       <td className="p-2 border">2</td>
       <td className="p-2 border">$10.00</td>
@@ -33,7 +35,7 @@ const GetOrder = () => {
           <option>Rejected</option>
         </select>
       </td>
-      <td className="p-4 border"></td>
+      <td className="p-2 border"></td>
     </tr>
     {/* Add more rows as needed */}
   </tbody>
