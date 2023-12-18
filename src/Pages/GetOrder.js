@@ -4,10 +4,7 @@ import { toast } from "react-toastify";
 
 const GetOrder = () => {
   const { userToken } = useContext(AuthContext);
-  const [order, setOrder] = useState({
-    withOutOrderDetails: [],
-    foodItems: [],
-  });
+  const [order, setOrder] = useState([]);
 
   const getOrder = async () => {
     try {
@@ -19,10 +16,7 @@ const GetOrder = () => {
       });
       let res = await response.json();
       if (res.success) {
-        setOrder({
-          withOutOrderDetails: res.withOutOrderDetails,
-          foodItems: res.foodItems,
-        });
+        setOrder(res.orders);
       } else {
         console.log(res.message);
       }
@@ -37,7 +31,6 @@ const GetOrder = () => {
   }, []);
 
   const updateOrder = async (foodNo, resturantAuth, status) => {
-    // const {foodNo, resturantAuth, status} = data; // Remove this line
     try {
       const response = await fetch(`http://localhost:3000/api/updateorder`, {
         method: "PUT",
@@ -54,7 +47,7 @@ const GetOrder = () => {
       let res = await response.json();
       if (res.success) {
         toast.success(res.message);
-        setOrder(order.filter((x) => x.foodItem.status !== "pending"));
+        getOrder(); // Refresh the order data after update
       } else {
         toast.error(res.message);
       }
@@ -73,54 +66,50 @@ const GetOrder = () => {
           <tr className="bg-[#FEC013]">
             <th className="p-2 border">Order No</th>
             <th className="p-2 border">Customer Name</th>
-            <th className="p-2 border">Food Title</th>
-            <th className="p-2 border">Food Quantity</th>
-            <th className="p-2 border">Food Price</th>
-            <th className="p-2 border">Order Qty</th>
-            <th className="p-2 border">Order Total</th>
+            <th className="p-2 border">Order Details</th>
             <th className="p-2 border">Status</th>
             <th className="p-2 border">Change Status</th>
-            <th className="p-2 border">Received Time</th>
-            {/* <th className="p-2 border"></th> */}
           </tr>
         </thead>
         <tbody>
-          {order.withOutOrderDetails.length === 0 ||
-          order.foodItems.length === 0 ? (
+          {order.length === 0 ? (
             <tr>
-              <td colSpan="8">No orders!</td>
+              <td className="text-center text-lg" colSpan="5">
+                No orders!
+              </td>
             </tr>
           ) : (
-            order.withOutOrderDetails.map((orderItem, index) => (
+            order.map((item, index) => (
               <tr key={index} className="">
-                <td className="p-1 border">{orderItem.orderNo}</td>
-                <td className="p-1 border">{orderItem.userName}</td>
-                {order.foodItems.map((foodItem, foodIndex) => (
-                  <React.Fragment key={foodIndex}>
-                    <td className="p-1 border">{foodItem.foodTitle}</td>
-                    <td className="p-1 border">{foodItem.foodQuantity}</td>
-                    <td className="p-1 border">${foodItem.price}</td>
-                    <td className="p-1 border">{foodItem.qty}</td>
-                    <td className="p-1 border">{foodItem.totalPrice}</td>
-                    <td className="p-1 border">{foodItem.status}</td>
-                    <td className="p-1 border">
-                      <select
-                        onChange={(e) =>
-                          updateOrder(
-                            foodItem.foodNo,
-                            foodItem.resturantAuth,
-                            e.target.value
-                          )
-                        }
-                        className="p-2"
-                      >
-                        <option value="delivered">Delivered</option>
-                        <option value="rejected">Rejected</option>
-                      </select>
-                    </td>
-                    {/* <td className="p-2 border"></td> */}
-                  </React.Fragment>
-                ))}
+                <td className="p-1 border">{item.orderNo}</td>
+                <td className="p-1 border">{item.userName}</td>
+                <td className="p-1 border">
+                  {item.orderDetails.map((detail, detailIndex) => (
+                    <div key={detailIndex}>
+                      <div>Food Title: {detail.foodTitle}</div>
+                      <div>Food Quantity: {detail.qty}</div>
+                      <div>Price: ${detail.totalPrice}</div>
+                      {/* Add more details as needed */}
+                    </div>
+                  ))}
+                </td>
+                <td className="p-1 border">{item.orderDetails[0].status}</td>
+                <td className="p-1 border">
+                  <select
+                    className="p-2"
+                    onChange={() =>
+                      updateOrder(
+                        item.orderDetails[0].foodNo,
+                        item.orderDetails[0].resturantAuth,
+                        item.orderDetails[0].status
+                      )
+                    }
+                  >
+                    <option value="">Update status</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </td>
               </tr>
             ))
           )}
