@@ -5,8 +5,10 @@ import { toast } from "react-toastify";
 const GetOrder = () => {
   const { userToken } = useContext(AuthContext);
   const [order, setOrder] = useState([]);
+  const [loading  ,  setLoading] = useState(true);
 
   const getOrder = async () => {
+    setLoading(true);
     try {
       let response = await fetch(`http://localhost:3000/api/getorder`, {
         method: "GET",
@@ -17,6 +19,8 @@ const GetOrder = () => {
       let res = await response.json();
       if (res.success) {
         setOrder(res.orders);
+        setLoading(false);
+        console.log(order);
       } else {
         console.log(res.message);
       }
@@ -30,7 +34,7 @@ const GetOrder = () => {
     getOrder();
   }, []);
 
-  const updateOrder = async (foodNo, resturantAuth, status) => {
+  const updateOrder = async (orderNo , foodNo, resturantAuth, status) => {
     try {
       const response = await fetch(`http://localhost:3000/api/updateorder`, {
         method: "PUT",
@@ -39,6 +43,7 @@ const GetOrder = () => {
           authToken: userToken,
         },
         body: JSON.stringify({
+          orderNo,
           foodNo,
           resturantAuth,
           status,
@@ -57,6 +62,7 @@ const GetOrder = () => {
     }
   };
 
+
   return (
     <div className="container h-auto max-w-[100%] overflow-x-scroll custom-scrollbar">
       <h2 className="text-4xl mt-2 mb-4">Get Order</h2>
@@ -72,9 +78,9 @@ const GetOrder = () => {
           </tr>
         </thead>
         <tbody>
-          {order.length === 0 ? (
+          {order.length === 0 && loading ? (
             <tr>
-              <td className="text-center text-lg" colSpan="5">
+              <td className="text-center text-lg py-20" colSpan="5">
                 No orders!
               </td>
             </tr>
@@ -97,11 +103,12 @@ const GetOrder = () => {
                 <td className="p-1 border">
                   <select
                     className="p-2"
-                    onChange={() =>
+                    onChange={(e)=>
                       updateOrder(
+                        item.orderNo,
                         item.orderDetails[0].foodNo,
                         item.orderDetails[0].resturantAuth,
-                        item.orderDetails[0].status
+                        e.target.value
                       )
                     }
                   >
