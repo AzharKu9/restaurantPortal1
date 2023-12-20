@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { MdOutlineRemoveShoppingCart } from "react-icons/md";
+import { Skeleton } from 'antd';
 
 const GetOrder = () => {
   const { userToken } = useContext(AuthContext);
   const [order, setOrder] = useState([]);
-  const [loading  ,  setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const getOrder = async () => {
     setLoading(true);
@@ -20,9 +22,8 @@ const GetOrder = () => {
       if (res.success) {
         setOrder(res.orders);
         setLoading(false);
-        console.log(order);
       } else {
-        console.log(res.message);
+        setLoading(false)
       }
     } catch (error) {
       console.log(error);
@@ -34,7 +35,7 @@ const GetOrder = () => {
     getOrder();
   }, []);
 
-  const updateOrder = async (orderNo , foodNo, resturantAuth, status) => {
+  const updateOrder = async (orderNo, foodNo, resturantAuth, status) => {
     try {
       const response = await fetch(`http://localhost:3000/api/updateorder`, {
         method: "PUT",
@@ -62,7 +63,6 @@ const GetOrder = () => {
     }
   };
 
-
   return (
     <div className="container h-auto max-w-[100%] overflow-x-scroll custom-scrollbar">
       <h2 className="text-4xl mt-2 mb-4">Get Order</h2>
@@ -78,10 +78,19 @@ const GetOrder = () => {
           </tr>
         </thead>
         <tbody>
-          {order.length === 0 && loading ? (
+          {loading ? <Skeleton paragraph={{rows:8}}/>:
+          order.length === 0 ? (
             <tr>
               <td className="text-center text-lg py-20" colSpan="5">
-                No orders!
+                <span className="">
+                  <MdOutlineRemoveShoppingCart 
+                    className="m-auto mt-4"
+                    size={48}
+                  />
+                  <h1 className="mt-2 text-lg">
+                    No Order
+                  </h1>
+                </span>
               </td>
             </tr>
           ) : (
@@ -103,7 +112,7 @@ const GetOrder = () => {
                 <td className="p-1 border">
                   <select
                     className="p-2"
-                    onChange={(e)=>
+                    onChange={(e) =>
                       updateOrder(
                         item.orderNo,
                         item.orderDetails[0].foodNo,

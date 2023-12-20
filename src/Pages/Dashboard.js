@@ -4,7 +4,6 @@ import ViewProduct from './ViewProduct';
 import GetOrder from './GetOrder';
 import Home from './Home';
 import Setting from './Setting';
-import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import { FaHome, FaGetPocket } from "react-icons/fa";
@@ -16,7 +15,7 @@ import { IoLogOut } from "react-icons/io5";
 const Dashboard = () => {
   const { logout } = useContext(AuthContext)
   const [selectedTab, setSelectedTab] = useState('home'); // State to manage selected tab
-  console.log("Waas");
+  
   const changeTab = (tabName) => {
     setSelectedTab(tabName);
   };
@@ -76,7 +75,7 @@ const Dashboard = () => {
             </li>
             {/* Add more navigation items as needed */}
           </ul>
-          <div className='absolute left-0  bg-[#FEC013] bottom-32 py-2 w-full rounded-sm flex justify-center'>
+          <div className='  bg-[#FEC013] bottom-32 py-2 w-full rounded-sm flex justify-center mt-4'>
             <button onClick={handleLogout} className='font-semibold  flex flex-row items-center'><IoLogOut className='mr-2'/>Logout</button>
           </div>
         </div>
