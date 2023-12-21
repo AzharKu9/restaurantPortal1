@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
+import React, {useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FaShoppingBag ,FaHandHoldingUsd } from "react-icons/fa";
@@ -8,18 +6,8 @@ import { MdOutlinePendingActions } from "react-icons/md";
 import { TbChecklist } from "react-icons/tb";
 import { TfiReload } from "react-icons/tfi";
 import { MdFoodBank } from "react-icons/md";
+import ChartConfig from './ChartConfig';
 const Home = () => {
-
-  useEffect(() => {
-    return () => {
-      // Cleanup: Destroy the chart instance 
-      const chartInstance = Chart.getChart('chart-0');
-      if (chartInstance) {
-        chartInstance.destroy();
-      }
-    };
-  }, []);
-
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -39,7 +27,7 @@ const Home = () => {
 
 
   return (
-    <div className='container  min-h-screen max-h-full'>
+    <div className='container min-h-screen max-h-full'>
       <h2 className='text-4xl mt-2 mb-4'>Home</h2>
       <hr className='mb-6'></hr>
 
@@ -98,22 +86,8 @@ const Home = () => {
           <MdFoodBank className='text-[#FEC013] text-3xl float-right'/>
         </div>
       </div>
-      <div className=' mt-20 h-[35vh]'>
-        <Bar
-          data={{
-            labels: ["A", "B", "C"],
-            datasets: [
-              {
-                label: "Sale",
-                data: [200, 300, 400]
-              },
-              {
-                label: "Revenue",
-                data: [50, 70, 90]
-              }
-            ]
-          }} />
-      </div>
+   
+     <ChartConfig/>
     </div>
   )
 }

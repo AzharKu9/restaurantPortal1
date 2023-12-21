@@ -11,6 +11,8 @@ import { IoIosAddCircle } from "react-icons/io";
 import { MdOutlinePreview } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { IoLogOut } from "react-icons/io5";
+import CreateUser from './CreateUser';
+import { FaUserPlus } from "react-icons/fa";
 
 const Dashboard = () => {
   const { logout } = useContext(AuthContext)
@@ -73,13 +75,21 @@ const Dashboard = () => {
               <IoMdSettings className='mr-2'/>
               Setting
             </li>
+            <li
+              onClick={() => changeTab('createuser')}
+              className={`flex flex-row items-center cursor-pointer py-2 pl-4 border-b-2 border-[#fbb800] ${selectedTab === 'createuser' ? 'text-black font-bold bg-[#fbb800] rounded-sm border-r-4 border-r-black' : ''
+                }`}
+            >
+              <FaUserPlus className='mr-2'/>
+              Create User
+            </li>
             {/* Add more navigation items as needed */}
           </ul>
           <div className='  bg-[#FEC013] bottom-32 py-2 w-full rounded-sm flex justify-center mt-4'>
             <button onClick={handleLogout} className='font-semibold  flex flex-row items-center'><IoLogOut className='mr-2'/>Logout</button>
           </div>
         </div>
-        </div>
+      </div>
       <div className="flex-1 h-[120vh] w-4/5 p-8  ml-[20%]">
         {/* Main Content */}
         {selectedTab === 'home' && (
@@ -108,6 +118,12 @@ const Dashboard = () => {
         {selectedTab === 'setting' && (
           <div>
             <Setting />
+            {/* Add content for Delete Product page */}
+          </div>
+        )}
+        {selectedTab === 'createuser' && (
+          <div>
+            <CreateUser/>
             {/* Add content for Delete Product page */}
           </div>
         )}

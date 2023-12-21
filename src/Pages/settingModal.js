@@ -5,74 +5,71 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 
 
-const ModalUpdate = ({ setModalOpen, foodItem }) => {
+const SettingModal = ({ setModalOpen , restaurantSetting   }) => {
   
   const { userToken } = useContext(AuthContext)
-  const initialValues = {
-    foodTitle: foodItem.foodTitle || "",
-    foodDescription: foodItem.foodDescription || "",
-    foodQuantity: foodItem.foodQuantity || "",
-    price: foodItem.price || 0,
-    foodOffer: foodItem.foodOffer || "",
-    image: foodItem.image || null,
-  };
-
-  const validationSchema = Yup.object({
-    foodTitle: Yup.string().required("Required"),
-    foodDescription: Yup.string().required("Required"),
-    foodQuantity: Yup.string().required("Required"),
-    price: Yup.number().required("Required").positive("Price cannot be negative"),
-    foodOffer: Yup.string().required("Required"),
-    image: Yup.mixed().required("Required"),
-  });
-
-  const onSubmit = async(values) => {
-    try {
-      const formData = new FormData();
-      formData.append('foodTitle', values.foodTitle);
-      formData.append('foodDescription', values.foodDescription);
-      formData.append('foodQuantity', values.foodQuantity);
-      formData.append('foodOffer', values.foodOffer);
-      formData.append('price', values.price);
-      formData.append('image', values.image);
-      // console.log('Request URL:', `http://localhost:3000/api/add/updatefood/${foodItem._id}`);
-
-
-      // ****api fetcging here****
-      const response = await fetch(`http://localhost:3000/api/add/updatefood/${foodItem._id}`, {
-        method: 'PUT',
-        headers: {
-          'authToken': userToken,
-        },
-        body: formData,
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
-  
-      const contentType = response.headers.get('content-type');
-      const data = contentType && contentType.includes('application/json') ? await response.json() : await response.text();
-  
-      if (data.success) {
-        toast.success(data.message);
-        formik.resetForm();
-      } else {
-        toast.error(data.message || 'Failed to update food.');
-      }
-    } catch (error) {
-      console.log(error);
-      console.error('Error updating food:', error);
-    }
-    setModalOpen(false);
-  };
-  
-  
 
   const formik = useFormik({
-    initialValues,
-    validationSchema,
-    onSubmit,
+    initialValues: {
+      restaurantName: "",
+      restaurantDescription: "",
+      restaurantAddress: "",
+      restaurantPhone: "",
+      restaurantEmail: "",
+      image: null,
+    },
+    validationSchema: Yup.object({
+      restaurantName: Yup.string()
+        .min(4, "Must be at least 5 characters")
+        .required("Required"),
+      restaurantDescription: Yup.string()
+        .min(12, "Must be at least 5 characters")
+        .required("Required"),
+      restaurantAddress: Yup.string()
+        .min(11, "Must be at least 12 characters")
+        .required("Required"),
+      restaurantPhone: Yup.string()
+        .min(10, "Number is not valid")
+        .required("Required"),
+      restaurantEmail: Yup.string()
+        .email("Invalid restaurantEmail restaurantAddress")
+        .required("Restaurant restaurantEmail is required"),
+      image: Yup.mixed().required("Image is required"),
+    }),
+    onSubmit: async (values) => {
+      try {
+        // Create FormData object for handling file upload
+        const formData = new FormData();
+        formData.append("restaurantName", values.restaurantName);
+        formData.append("restaurantDescription", values.restaurantDescription);
+        formData.append("restaurantAddress", values.restaurantAddress);
+        formData.append("restaurantPhone", values.restaurantPhone);
+        formData.append("restaurantEmail", values.restaurantEmail);
+        formData.append("image", values.image);
+        const response = await fetch(
+          "http://localhost:3000/api/add/addresturant",
+          {
+            method: "POST",
+            headers: {
+              authToken: userToken,
+            },
+            body: formData, // Use FormData for file uploads
+          }
+        );
+
+        const data = await response.json();
+        if (data.success) {
+          toast.success(data.message);
+          formik.resetForm();
+        } else {
+          toast.error(data.message || "Failed to create restaurant.");
+        }
+      } catch (error) {
+        console.log(error);
+        console.error("Error creating restaurant:", error);
+        // Log the specific error message from the server (if available)
+      }
+    },
   });
 
   return (
@@ -84,7 +81,7 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
             {/*header*/}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-3xl font-semibold font-sans text-black">
-                Update your food
+                Update your Restaurant Account
               </h3>
               <button
                 className="p-1 ml-auto  border-0 text-[#FEC013]  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -103,20 +100,20 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
                     htmlFor="foodTitle"
                     className="leading-7 text-base my-2 text-slate-900"
                   >
-                    Food Title
+                    Restaurant Name
                   </label>
                   <input
                     type="text"
-                    id="foodTitle"
-                    name="foodTitle"
+                    id="restaurantName"
+                    name="restaurantName"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.foodTitle}
+                    value={formik.values.restaurantName}
                     className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
-                  {formik.touched.foodTitle && formik.errors.foodTitle ? (
+                  {formik.touched.restaurantName && formik.errors.restaurantName ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.foodTitle}
+                      {formik.errors.restaurantName}
                     </div>
                   ) : null}
 
@@ -127,20 +124,20 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
                     htmlFor="foodTitle"
                     className="leading-7 text-base my-2 text-slate-900"
                   >
-                    Food Description
+                    Restaurant Description
                   </label>
                   <input
                     type="text"
-                    id="foodDescription"
-                    name="foodDescription"
+                    id="restaurantDescription"
+                    name="restaurantDescription"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.foodDescription}
+                    value={formik.values.restaurantDescription}
                     className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
-                  {formik.touched.foodDescription && formik.errors.foodDescription ? (
+                  {formik.touched.restaurantDescription && formik.errors.restaurantDescription ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.foodDescription}
+                      {formik.errors.restaurantDescription}
                     </div>
                   ) : null}
 
@@ -151,20 +148,20 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
                     htmlFor="foodTitle"
                     className="leading-7 text-base my-2 text-slate-900"
                   >
-                    Food Quantity
+                    Restaurant Address
                   </label>
                   <input
                     type="text"
-                    id="foodQuantity"
-                    name="foodQuantity"
+                    id="restaurantAddress"
+                    name="restaurantAddress"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.foodQuantity}
+                    value={formik.values.restaurantAddress}
                     className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
-                  {formik.touched.foodQuantity && formik.errors.foodQuantity ? (
+                  {formik.touched.restaurantAddress && formik.errors.restaurantAddress ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.foodQuantity}
+                      {formik.errors.restaurantAddress}
                     </div>
                   ) : null}
 
@@ -174,20 +171,20 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
                     htmlFor="foodTitle"
                     className="leading-7 text-base my-2 text-slate-900"
                   >
-                    Food Price
+                    Restaurant Phone
                   </label>
                   <input
                     type="number"
-                    id="price"
-                    name="price"
+                    id="restaurantPhone"
+                    name="restaurantPhone"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.price}
+                    value={formik.values.restaurantPhone}
                     className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
-                  {formik.touched.price && formik.errors.price ? (
+                  {formik.touched.restaurantPhone && formik.errors.restaurantPhone ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.price}
+                      {formik.errors.restaurantPhone}
                     </div>
                   ) : null}
 
@@ -198,20 +195,20 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
                     htmlFor="foodTitle"
                     className="leading-7 text-base my-2 text-slate-900"
                   >
-                    Food Offer
+                    Restaurant Email
                   </label>
                   <input
-                    type="text"
-                    id="foodOffer"
-                    name="foodOffer"
+                    type="email"
+                    id="restaurantEmail"
+                    name="restaurantEmail"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.foodOffer}
+                    value={formik.values.restaurantEmail}
                     className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-[#FEC013] focus:yellow-red-300 text-base outline-none text-slate-900 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   />
-                  {formik.touched.foodOffer && formik.errors.foodOffer ? (
+                  {formik.touched.restaurantEmail && formik.errors.restaurantEmail ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.foodOffer}
+                      {formik.errors.restaurantEmail}
                     </div>
                   ) : null}
                 </div>
@@ -253,7 +250,7 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
                     type="submit"
                     className="bg-[#FEC013] text-black active:bg-yellow-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none hover:bg-yellow-400 focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                   >
-                    Update
+                    Update Account
                   </button>
                 </div>
               </form>
@@ -266,4 +263,4 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
   );
 };
 
-export default ModalUpdate;
+export default SettingModal;
