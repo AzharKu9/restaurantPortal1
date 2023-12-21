@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { MdOutlineRemoveShoppingCart } from "react-icons/md";
-import { Skeleton } from 'antd';
+import { Skeleton } from "antd";
 
 const GetOrder = () => {
   const { userToken } = useContext(AuthContext);
@@ -23,7 +23,7 @@ const GetOrder = () => {
         setOrder(res.orders);
         setLoading(false);
       } else {
-        setLoading(false)
+        setLoading(false);
       }
     } catch (error) {
       console.log(error);
@@ -77,59 +77,60 @@ const GetOrder = () => {
             <th className="p-2 border">Change Status</th>
           </tr>
         </thead>
-        <tbody>
-          {loading ? <Skeleton paragraph={{rows:8}}/>:
-          order.length === 0 ? (
-            <tr>
-              <td className="text-center text-lg py-20" colSpan="5">
-                <span className="">
-                  <MdOutlineRemoveShoppingCart 
-                    className="m-auto mt-4"
-                    size={48}
-                  />
-                  <h1 className="mt-2 text-lg">
-                    No Order
-                  </h1>
-                </span>
-              </td>
-            </tr>
-          ) : (
-            order.map((item, index) => (
-              <tr key={index} className="">
+
+        {/* // this is update code of there is any error occur then you can match code with your github account */}
+        {loading ? (
+          <tr>
+            <td className="text-center text-lg py-20" colSpan="5">
+              <Skeleton paragraph={{ rows: 8 }} />
+            </td>
+          </tr>
+        ) : (
+          order.map((item, index) => (
+            <React.Fragment key={index}>
+              <tr>
                 <td className="p-1 border">{item.orderNo}</td>
                 <td className="p-1 border">{item.userName}</td>
-                <td className="p-1 border">
-                  {item.orderDetails.map((detail, detailIndex) => (
-                    <div key={detailIndex}>
+                <td className="p-1 border" colSpan="3">
+                  <Skeleton paragraph={{ rows: 1 }} />
+                </td>
+              </tr>
+              {item.orderDetails.map((detail, detailIndex) => (
+                <tr key={detailIndex} className="">
+                  <td className="p-1 border" colSpan="2">
+                    <Skeleton paragraph={{ rows: 1 }} />
+                  </td>
+                  <td className="p-1 border">
+                    <div>
                       <div>Food Title: {detail.foodTitle}</div>
                       <div>Food Quantity: {detail.qty}</div>
                       <div>Price: ${detail.totalPrice}</div>
                       {/* Add more details as needed */}
                     </div>
-                  ))}
-                </td>
-                <td className="p-1 border">{item.orderDetails[0].status}</td>
-                <td className="p-1 border">
-                  <select
-                    className="p-2"
-                    onChange={(e) =>
-                      updateOrder(
-                        item.orderNo,
-                        item.orderDetails[0].foodNo,
-                        item.orderDetails[0].resturantAuth,
-                        e.target.value
-                      )
-                    }
-                  >
-                    <option value="">Update status</option>
-                    <option value="delivered">Delivered</option>
-                    <option value="rejected">Rejected</option>
-                  </select>
-                </td>
-              </tr>
-            ))
-          )}
-        </tbody>
+                  </td>
+                  <td className="p-1 border">{detail.status}</td>
+                  <td className="p-1 border">
+                    <select
+                      className="p-2"
+                      onChange={(e) =>
+                        updateOrder(
+                          item.orderNo,
+                          detail.foodNo,
+                          detail.resturantAuth,
+                          e.target.value
+                        )
+                      }
+                    >
+                      <option value="">Update status</option>
+                      <option value="delivered">Delivered</option>
+                      <option value="rejected">Rejected</option>
+                    </select>
+                  </td>
+                </tr>
+              ))}
+            </React.Fragment>
+          ))
+        )}
       </table>
     </div>
   );

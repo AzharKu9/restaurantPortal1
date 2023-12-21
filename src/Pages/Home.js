@@ -7,8 +7,7 @@ import { FaShoppingBag ,FaHandHoldingUsd } from "react-icons/fa";
 import { MdOutlinePendingActions } from "react-icons/md";
 import { TbChecklist } from "react-icons/tb";
 import { TfiReload } from "react-icons/tfi";
-
-
+import { MdFoodBank } from "react-icons/md";
 const Home = () => {
 
   useEffect(() => {
@@ -93,6 +92,11 @@ const Home = () => {
           <TbChecklist className='text-[#FEC013] text-3xl float-right'/>
 
         </div>
+        <div className='h-[5%] w-[26%] my-2 mx-4 border-2 border-solid border-[#FEC013] rounded-md p-4'>
+          <h1 className='text-sm font-semibold'>Total Active Dishes</h1>
+          <span className='text-3xl font-bold text-[#FEC013]'>15 Orders</span>
+          <MdFoodBank className='text-[#FEC013] text-3xl float-right'/>
+        </div>
       </div>
       <div className=' mt-20 h-[35vh]'>
         <Bar
@@ -100,8 +104,12 @@ const Home = () => {
             labels: ["A", "B", "C"],
             datasets: [
               {
-                label: "Revenue",
+                label: "Sale",
                 data: [200, 300, 400]
+              },
+              {
+                label: "Revenue",
+                data: [50, 70, 90]
               }
             ]
           }} />
