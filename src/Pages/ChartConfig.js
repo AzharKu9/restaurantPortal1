@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Bar, Doughnut } from "react-chartjs-2";
+import { Bar, Doughnut, Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
 const ChartConfig = () => {
@@ -18,7 +18,7 @@ const ChartConfig = () => {
   const barData = {
     labels: [
       "January",
-      "Febuary",
+      "February",
       "March",
       "April",
       "May",
@@ -51,6 +51,13 @@ const ChartConfig = () => {
         stacked: true,
       },
     },
+    layout: {
+      // Set this to false to allow setting width and height
+      margin: {
+        top: 100,
+        bottom: 50,
+      },
+    },
     // Add more Bar chart specific options as needed
   };
 
@@ -69,18 +76,33 @@ const ChartConfig = () => {
 
   const options = {
     cutoutPercentage: 70, // Adjust this to control the size of the hole in the center
+    layout: {
+      // Set this to false to allow setting width and height
+      padding: {
+        left: 50,
+        right: 50,
+        bottom: 100,
+      },
+    },
   };
 
   return (
-    <div className="mt-20 w-full">
-      {/* Bar chart which shows the details sells against reveneue..  */}
-      <div className="w-[90%] h-[30%] m-auto">
-        <Bar data={barData} options={barOptions} />
+    <div className="">
+      {/* Bar chart which shows the details sells against revenue..  */}
+      <div className="w-full mt-20 mb-[5rem]">
+        <Line data={barData} options={barOptions} />
       </div>
 
-      {/* Doughunt chart which shows the details sells against reveneue..  */}
-      <div className="">
-        <Doughnut data={data} options={options} />
+      <div className="flex md:flex-row flex-col ">
+        {/* Bar chart which shows the details sells against revenue..  */}
+        <div className="md:w-1/2 w-full mt-2">
+          <Bar data={barData} options={barOptions} />
+        </div>
+
+        {/* Doughnut chart which shows the details sells against revenue..  */}
+        <div className="md:w-1/2 w-full mt-2">
+          <Doughnut data={data} options={options} />
+        </div>
       </div>
     </div>
   );

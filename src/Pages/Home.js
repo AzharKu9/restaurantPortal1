@@ -27,7 +27,7 @@ const Home = () => {
 
 
   return (
-    <div className='container min-h-screen max-h-full'>
+    <div className='container min-h-screen max-h-full mb-[10rem]'>
       <h2 className='text-4xl mt-2 mb-4'>Home</h2>
       <hr className='mb-6'></hr>
 
