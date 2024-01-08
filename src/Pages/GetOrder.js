@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
-import { MdOutlineRemoveShoppingCart } from "react-icons/md";
+// import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { Skeleton } from "antd";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
 
 const GetOrder = () => {
   const { userToken } = useContext(AuthContext);
@@ -85,21 +86,31 @@ const GetOrder = () => {
               <Skeleton paragraph={{ rows: 8 }} />
             </td>
           </tr>
+        ) : order.length === 0 ? (
+          <tr>
+            <td colSpan={5}>
+            <span  className="m-auto">
+            <MdOutlineAddShoppingCart className="m-auto mt-16" size={48} />
+            <h1 className="mt-2 text-lg text-center">
+              There is no food added in restauarnt
+            </h1>
+          </span>
+            </td>
+          </tr>
+         
         ) : (
           order.map((item, index) => (
             <React.Fragment key={index}>
               <tr>
-                <td className="p-1 border">{item.orderNo}</td>
-                <td className="p-1 border">{item.userName}</td>
-                <td className="p-1 border" colSpan="3">
-                  <Skeleton paragraph={{ rows: 1 }} />
+                <td rowSpan={2} className="p-1 border">
+                  {item.orderNo}
+                </td>
+                <td rowSpan={2} className="p-1 border">
+                  {item.userName}
                 </td>
               </tr>
               {item.orderDetails.map((detail, detailIndex) => (
                 <tr key={detailIndex} className="">
-                  <td className="p-1 border" colSpan="2">
-                    <Skeleton paragraph={{ rows: 1 }} />
-                  </td>
                   <td className="p-1 border">
                     <div>
                       <div>Food Title: {detail.foodTitle}</div>
@@ -121,8 +132,8 @@ const GetOrder = () => {
                         )
                       }
                     >
-                      <option value="">Update status</option>
-                      <option value="delivered">Delivered</option>
+                      <option value="">~Update status~</option>
+                      <option value="ride">Ride</option>
                       <option value="rejected">Rejected</option>
                     </select>
                   </td>

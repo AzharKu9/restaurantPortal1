@@ -65,7 +65,7 @@ const ViewProduct = () => {
       <div className="flex flex-wrap h-auto">
         {loading ? <Skeleton paragraph={{rows:8}}/>: 
          food.length === 0 ? (
-          <span className="">
+          <span className="m-auto">
             <MdOutlineAddShoppingCart className="m-auto mt-16" size={48} />
             <h1 className="mt-2 text-lg">
               There is no food added in restauarnt  
