@@ -121,10 +121,7 @@ const ViewProduct = () => {
             );
           })
         )}
-      
-       
       </div>
-
       {modelOpen && (
         <ModalUpdate setModalOpen={setModalOpen} foodItem={foodItem} />
       )}

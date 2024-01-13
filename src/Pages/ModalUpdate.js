@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 
-
 const ModalUpdate = ({ setModalOpen, foodItem }) => {
   
   const { userToken } = useContext(AuthContext)
@@ -37,7 +36,6 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
       formData.append('image', values.image);
       // console.log('Request URL:', `http://localhost:3000/api/add/updatefood/${foodItem._id}`);
 
-
       // ****api fetcging here****
       const response = await fetch(`http://localhost:3000/api/add/updatefood/${foodItem._id}`, {
         method: 'PUT',
@@ -67,8 +65,6 @@ const ModalUpdate = ({ setModalOpen, foodItem }) => {
     setModalOpen(false);
   };
   
-  
-
   const formik = useFormik({
     initialValues,
     validationSchema,

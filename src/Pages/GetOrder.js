@@ -53,8 +53,22 @@ const GetOrder = () => {
       });
       let res = await response.json();
       if (res.success) {
-        toast.success(res.message);
-        getOrder(); // Refresh the order data after update
+        toast.success(res.message)
+        setOrder(prevOrder => prevOrder.filter(x => x.orderNo !== orderNo));
+        // setOrder((prevOrders) => {
+        //   const filteredOrders = prevOrders.filter((item) => {
+        //     if (item.orderNo === orderNo) {
+        //       const filteredOrderDetails = item.orderDetails.filter(
+        //         (detail) => detail.foodNo !== foodNo
+        //       );
+        //       return filteredOrderDetails.length > 0
+        //         ? { ...item, orderDetails: filteredOrderDetails }
+        //         : null;
+        //     }
+        //     return item;
+        //   });
+        //   return filteredOrders.filter(Boolean); // Remove null values
+        // });
       } else {
         toast.error(res.message);
       }
