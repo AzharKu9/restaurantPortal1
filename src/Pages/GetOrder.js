@@ -4,11 +4,13 @@ import { toast } from "react-toastify";
 // import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { Skeleton } from "antd";
 import { MdOutlineAddShoppingCart } from "react-icons/md";
+import OrderDetailModal from "./OrderDetailModal";
 
 const GetOrder = () => {
   const { userToken } = useContext(AuthContext);
   const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModal , setIsModal] = useState(false);
 
   const getOrder = async () => {
     setLoading(true);
@@ -87,9 +89,10 @@ const GetOrder = () => {
           <tr className="bg-[#FEC013]">
             <th className="p-2 border">Order No</th>
             <th className="p-2 border">Customer Name</th>
-            <th className="p-2 border">Order Details</th>
+            <th className="p-2 border">Total Ammount</th>
+            <th className="p-2 border">Total Qunatity</th>
             <th className="p-2 border">Status</th>
-            <th className="p-2 border">Change Status</th>
+            <th className="p-2 border">See Details</th>
           </tr>
         </thead>
 
@@ -122,41 +125,24 @@ const GetOrder = () => {
                 <td rowSpan={2} className="p-1 border">
                   {item.userName}
                 </td>
+                <td rowSpan={2} className="p-1 border">
+                  {item.totalAmount}
+                </td>
+                <td rowSpan={2} className="p-1 border">
+                  {item.totalQty}
+                </td>
+                <td rowSpan={2} className="p-1 border">
+                  {item.orderDetails[0].status}
+                </td>
+                <td rowSpan={2} className="p-1 border">
+                  <button onClick={()=>setIsModal(!isModal)} className="bg-[#FEC013] px-3 py-2 rounded-sm my-3">View Details</button>
+                </td>
               </tr>
-              {item.orderDetails.map((detail, detailIndex) => (
-                <tr key={detailIndex} className="">
-                  <td className="p-1 border">
-                    <div>
-                      <div>Food Title: {detail.foodTitle}</div>
-                      <div>Food Quantity: {detail.qty}</div>
-                      <div>Price: ${detail.totalPrice}</div>
-                      {/* Add more details as needed */}
-                    </div>
-                  </td>
-                  <td className="p-1 border">{detail.status}</td>
-                  <td className="p-1 border">
-                    <select
-                      className="p-2"
-                      onChange={(e) =>
-                        updateOrder(
-                          item.orderNo,
-                          detail.foodNo,
-                          detail.resturantAuth,
-                          e.target.value
-                        )
-                      }
-                    >
-                      <option value="">~Update status~</option>
-                      <option value="ride">Ride</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
-                  </td>
-                </tr>
-              ))}
             </React.Fragment>
           ))
         )}
       </table>
+      {isModal && (<OrderDetailModal setIsModal={setIsModal} setOrder={setOrder} order={order}/>)}
     </div>
   );
 };
