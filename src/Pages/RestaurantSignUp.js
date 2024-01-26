@@ -22,10 +22,10 @@ const SignUp = () => {
         .required("Required"),
       email: Yup.string().email("Invalid email address").required("Required"),
       phone: Yup.string()
-        .min(10, "Must be at least 10 characters")
+        .min(11, "Must be at least 11 characters")
         .required("Required"),
       password: Yup.string()
-        .min(7, "Must be at least 7 characters")
+        .min(8, "Must be at least 8 characters")
         .required("Required"),
     }),
     onSubmit: (values) => {

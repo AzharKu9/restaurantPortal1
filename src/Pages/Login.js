@@ -19,7 +19,7 @@ const Login = () => {
         .min(3, "Name must be at least 3 characters")
         .required("Required"),
       password: Yup.string()
-        .min(7, "Password must be at least 7 characters")
+        .min(8, "Password must be at least 8 characters")
         .required("Required"),
     }),
     onSubmit: (values) => {

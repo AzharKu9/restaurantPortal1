@@ -5,7 +5,7 @@ const Setting = () => {
   const [modelOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="container  min-h-screen max-h-full">
+    <div className="container min-h-screen max-h-full">
       <h2 className="text-4xl mt-2 mb-4">Setting</h2>
       <hr className="mb-6"></hr>
       <div className="flex flex-col">

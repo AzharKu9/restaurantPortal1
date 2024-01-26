@@ -39,7 +39,7 @@ const OrderDetailModal = ({ setIsModal, order, setOrder }) => {
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mt-16">
-        <div className="relative w-3/4 mx-auto max-w-full h-[95%]">
+        <div className="relative w-3/4 mx-auto max-w-full h-[95%] max-h-[800px] mt-6">
           {/*content*/}
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">
             {/*header*/}
@@ -94,7 +94,7 @@ const OrderDetailModal = ({ setIsModal, order, setOrder }) => {
                             return (
                               <div
                                 key={index}
-                                className="flex flex-col w-[30%] h-[27%] border-2 border-[#FEC013] px-4 py-2 m-4 rounded-md"
+                                className="flex flex-col w-[27%] h-[27%] border-2 border-[#FEC013] px-4 py-2 m-4 rounded-md"
                               >
                                 <h1>Food No: {itemDetails.foodNo}</h1>
                                 <h1>Food Title: {itemDetails.foodTitle}</h1>

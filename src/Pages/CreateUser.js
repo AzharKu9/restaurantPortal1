@@ -3,7 +3,7 @@ import React from "react";
 const CreateUser = () => {
   return (
     <>
-      <div className="container  min-h-screen max-h-full">
+      <div className="container min-h-screen max-h-full">
         <h2 className="text-4xl mt-2 mb-4">Create User</h2>
         <hr className="mb-6"></hr>
         <div className="flex flex-col">
