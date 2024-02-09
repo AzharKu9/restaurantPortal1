@@ -107,7 +107,7 @@ const Setting = () => {
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b mb-[10rem] ">
+        <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b mb-[5rem] ">
           <button
              onClick={() => {
               setModalOpen(true);

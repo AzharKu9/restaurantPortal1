@@ -91,9 +91,7 @@ const CreateUser = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b mb-[10rem] ">
+        <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b mb-[5rem] ">
           <button
             type="button"
             className="text-black background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -106,6 +104,7 @@ const CreateUser = () => {
           >
             Create User
           </button>
+        </div>
         </div>
       </div>
     </>
