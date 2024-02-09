@@ -1,9 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import SettingModal from "./settingModal";
+import { AuthContext } from "../context/AuthContext";
 
 const Setting = () => {
   const [modelOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true)
+  const [account , setAccount] = useState()
+  const  {userToken} = useContext(AuthContext)
 
+  const fetchSetting  = async()=>{
+    try {
+      setLoading(true)
+      const res = await fetch(`http://localhost:3000/api/add/viewrestaurant`,{
+        headers:{
+          authtoken:userToken
+        }
+      })
+      const response = await res.json()
+      if(response.success){
+        setAccount(response.restaurant)
+        setLoading(false)
+        console.log(account);
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  useEffect(()=>{
+    fetchSetting()
+  },[])
+
+  if(loading){
+    return <div>Loading...</div>
+  }
   return (
     <div className="container min-h-screen max-h-full">
       <h2 className="text-4xl mt-2 mb-4">Setting</h2>
@@ -11,8 +40,8 @@ const Setting = () => {
       <div className="flex flex-col">
         <img
           style={{ height: "280px", width: "100%" }}
-          src={"image.avif"}
-          alt="restaurantimage"
+          src={account?.image}
+          alt={account?.restaurantName}
           className="rounded-md"
         />
         <div>
@@ -31,8 +60,9 @@ const Setting = () => {
                     type="name"
                     id="firstname"
                     name="firstName"
+                    value={account?._id}
                     readOnly
-                    className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-600 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-500 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-semibold  "
                   />
                 </div>
               </div>
@@ -48,8 +78,9 @@ const Setting = () => {
                     type="name"
                     id="lastname"
                     name="lastName"
+                    value={account?.restaurantNo}
                     readOnly
-                    className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-600 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-500 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-semibold"
                   />
                 </div>
               </div>
@@ -66,7 +97,8 @@ const Setting = () => {
                     type="email"
                     id="email"
                     name="email"
-                    className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-600 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    value={account?.restaurantName}
+                    className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-500 py-1 px-3 font-semibold leading-8 transition-colors duration-200 ease-in-out"
                     readOnly
                   />
                 </div>
@@ -85,8 +117,9 @@ const Setting = () => {
                     type="name"
                     id="lastname"
                     name="lastName"
+                    value={account?.restaurantAddress}
                     readOnly
-                    className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-600 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-500 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-semibold"
                   />
                 </div>
               </div>
@@ -100,8 +133,9 @@ const Setting = () => {
                 <textarea
                   type="email"
                   name="address"
+                  value={account?.restaurantDescription}
                   readOnly
-                  className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-600 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-white rounded border border-[#FEC013] focus:ring-2 focus:ring-yellow-400 focus:border-yellow-400  text-base outline-none text-yellow-500 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out font-semibold"
                 />
               </div>
             </div>
@@ -118,7 +152,7 @@ const Setting = () => {
           </button>
         </div>
       </div>
-      {modelOpen && (<SettingModal setModalOpen={setModalOpen} />)}
+      {modelOpen && (<SettingModal setModalOpen={setModalOpen} account={account}/>)}
     </div>
   );
 };

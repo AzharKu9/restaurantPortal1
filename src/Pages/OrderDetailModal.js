@@ -2,15 +2,16 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { Skeleton } from "antd";
-import { MdOutlineAddShoppingCart } from "react-icons/md";
 
-const OrderDetailModal = ({ setIsModal, order, setOrder }) => {
-  console.log(order);
+
+const OrderDetailModal = ({ setIsModal, order, setOrder, oneItem}) => {
+  console.log("OneItem",oneItem);
   const [loading, setLoading] = useState(false);
   const { userToken } = useContext(AuthContext);
 
   const updateOrder = async (orderNo, resturantAuth, status) => {
     try {
+      setLoading(true)
       const response = await fetch(`http://localhost:3000/api/updateorder`, {
         method: "PUT",
         headers: {
@@ -28,6 +29,7 @@ const OrderDetailModal = ({ setIsModal, order, setOrder }) => {
         toast.success(res.message);
         setOrder((prevOrder) => prevOrder.filter((x) => x.orderNo !== orderNo));
         setIsModal(false);
+        setLoading(false)
       } else {
         toast.error(res.message);
       }
@@ -36,6 +38,9 @@ const OrderDetailModal = ({ setIsModal, order, setOrder }) => {
       throw error;
     }
   };
+  if(loading){
+    return <div>Loading...</div>
+  }
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mt-16">
@@ -64,33 +69,31 @@ const OrderDetailModal = ({ setIsModal, order, setOrder }) => {
                 <div>
                   <Skeleton paragraph={{ rows: 8 }} />
                 </div>
-              ) : order.length === 0 ? (
+              ) : oneItem.length === 0 ? (
                 <div>Order Not Found</div>
               ) : (
                 <div className="h-full">
-                  {order.map((item, index) => {
-                    return (
-                      <div key={index}>
+                  <div>
                         <div className="text-base font-normal font-sans mx-4 my-2">
-                          <h1 className="pt-1">Order No: {item.orderNo}</h1>
+                          <h1 className="pt-1">Order No: {oneItem.orderNo}</h1>
                           <h1 className="pt-1">
-                            Customer Name: {item.userName}
+                            Customer Name: {oneItem.userName}
                           </h1>
                           <h1 className="pt-1">
-                            Total Ammount: {item.totalAmount} Rs.
+                            Total Ammount: {oneItem.totalAmount} Rs.
                           </h1>
                           <h1 className="pt-1">
-                            Total Quantity: {item.totalQty}
+                            Total Quantity: {oneItem.totalQty}
                           </h1>
                           <h1 className="pt-1">
-                            Status: {item.orderDetails[0].status}
+                            Status: {oneItem.orderDetails[0].status}
                           </h1>
                           <h1 className="pt-1">
-                            Order Recive Time: {item.createdAt}
+                            Order Recive Time: {oneItem.createdAt}
                           </h1>
                         </div>
                         <div className="flex flex-wrap">
-                          {item.orderDetails.map((itemDetails, index) => {
+                          {oneItem.orderDetails.map((itemDetails, index) => {
                             return (
                               <div
                                 key={index}
@@ -111,8 +114,8 @@ const OrderDetailModal = ({ setIsModal, order, setOrder }) => {
                           className="mx-4 mt-2 mb-4 p-2 bg-[#FEC013] rounded-md float-right"
                           onChange={(e) =>
                             updateOrder(
-                              item.orderNo,
-                              item.orderDetails[0].resturantAuth,
+                              oneItem.orderNo,
+                              oneItem.orderDetails[0].resturantAuth,
                               e.target.value
                             )
                           }
@@ -122,8 +125,6 @@ const OrderDetailModal = ({ setIsModal, order, setOrder }) => {
                           <option value="rejected">Rejected</option>
                         </select>
                       </div>
-                    );
-                  })}
                 </div>
               )}
             </div>

@@ -5,18 +5,18 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 
 
-const SettingModal = ({ setModalOpen , restaurantSetting   }) => {
+const SettingModal = ({ setModalOpen , account}) => {
   
   const { userToken } = useContext(AuthContext)
 
   const formik = useFormik({
     initialValues: {
-      restaurantName: "",
-      restaurantDescription: "",
-      restaurantAddress: "",
-      restaurantPhone: "",
-      restaurantEmail: "",
-      image: null,
+      restaurantName: account?.restaurantName || "",
+      restaurantDescription: account?.restaurantDescription || "",
+      restaurantAddress: account?.restaurantAddress || "",
+      restaurantPhone: account?.restaurantPhone || "",
+      restaurantEmail: account?.restaurantEmail || "",
+      image: account?.image || null,
     },
     validationSchema: Yup.object({
       restaurantName: Yup.string()

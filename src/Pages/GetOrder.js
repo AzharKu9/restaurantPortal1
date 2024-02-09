@@ -11,7 +11,12 @@ const GetOrder = () => {
   const [order, setOrder] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModal , setIsModal] = useState(false);
+  const [oneItem , setOneItem] = useState([])
 
+  const handleModalClicked = (item)=>{
+    setIsModal(!isModal)
+    setOneItem(item)
+  }
   const getOrder = async () => {
     setLoading(true);
     try {
@@ -38,48 +43,6 @@ const GetOrder = () => {
   useEffect(() => {
     getOrder();
   }, []);
-
-  const updateOrder = async (orderNo, foodNo, resturantAuth, status) => {
-    try {
-      const response = await fetch(`http://localhost:3000/api/updateorder`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          authToken: userToken,
-        },
-        body: JSON.stringify({
-          orderNo,
-          foodNo,
-          resturantAuth,
-          status,
-        }),
-      });
-      let res = await response.json();
-      if (res.success) {
-        toast.success(res.message)
-        setOrder(prevOrder => prevOrder.filter(x => x.orderNo !== orderNo));
-        // setOrder((prevOrders) => {
-        //   const filteredOrders = prevOrders.filter((item) => {
-        //     if (item.orderNo === orderNo) {
-        //       const filteredOrderDetails = item.orderDetails.filter(
-        //         (detail) => detail.foodNo !== foodNo
-        //       );
-        //       return filteredOrderDetails.length > 0
-        //         ? { ...item, orderDetails: filteredOrderDetails }
-        //         : null;
-        //     }
-        //     return item;
-        //   });
-        //   return filteredOrders.filter(Boolean); // Remove null values
-        // });
-      } else {
-        toast.error(res.message);
-      }
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  };
 
   return (
     <div className="container h-auto max-w-[100%] overflow-x-scroll custom-scrollbar">
@@ -130,12 +93,12 @@ const GetOrder = () => {
                   {item.orderDetails[0].status}
                 </h1>
                 <h1  className="p-1 border w-[16.5%] px-2 py-2">
-                  <button onClick={()=>setIsModal(!isModal)} className="bg-[#FEC013] px-3 py-2 rounded-sm my-2">View Details</button>
+                  <button onClick={()=>handleModalClicked(item)} className="bg-[#FEC013] px-3 py-2 rounded-sm my-2">View Details</button>
                 </h1>
               </div>
           ))
         )}
-      {isModal && (<OrderDetailModal setIsModal={setIsModal} setOrder={setOrder} order={order}/>)}
+      {isModal && (<OrderDetailModal setIsModal={setIsModal} setOrder={setOrder} order={order}  oneItem={oneItem}/>)}
     </div>
   );
 };
