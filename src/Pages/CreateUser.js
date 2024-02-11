@@ -19,7 +19,7 @@ const CreateUser = () => {
                 Create Secondary User
               </h1>
               <div className="px-4 flex flex-wrap">
-                <div className="px-2 w-1/2">
+                <div className="px-2 w-full md:w-1/2">
                   <div className="mb-4">
                     <label
                       htmlFor="name"
@@ -36,7 +36,7 @@ const CreateUser = () => {
                     />
                   </div>
                 </div>
-                <div className="px-2 w-1/2">
+                <div className="px-2 w-full md:w-1/2">
                   <div className="mb-4">
                     <label
                       htmlFor="name"
@@ -54,7 +54,7 @@ const CreateUser = () => {
                   </div>
                 </div>
 
-                <div className="px-2 w-1/2">
+                <div className="px-2 w-full md:w-1/2">
                   <div className="mb-4">
                     <label
                       htmlFor="email"
@@ -71,7 +71,7 @@ const CreateUser = () => {
                     />
                   </div>
                 </div>
-                <div className="px-2 w-1/2">
+                <div className="px-2 w-full md:w-1/2">
                   <div className="mb-4">
                     <label
                       htmlFor="email"

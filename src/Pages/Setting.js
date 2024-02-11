@@ -47,8 +47,8 @@ const Setting = () => {
         <div>
           <div className="">
             <h1 className="text-center m-10 text-2xl font-sans">The Account</h1>
-            <div className="px-4 flex">
-              <div className="px-2 w-1/2">
+            <div className="px-4 flex flex-wrap">
+              <div className="px-2 w-full md:w-[33%]">
                 <div className="mb-4">
                   <label
                     htmlFor="name"
@@ -66,7 +66,7 @@ const Setting = () => {
                   />
                 </div>
               </div>
-              <div className="px-2 w-1/2">
+              <div className="px-2 w-full md:w-[33%]">
                 <div className="mb-4">
                   <label
                     htmlFor="name"
@@ -84,8 +84,7 @@ const Setting = () => {
                   />
                 </div>
               </div>
-
-              <div className="px-2 w-1/2">
+              <div className="px-2 w-full md:w-[33%]">
                 <div className="mb-4">
                   <label
                     htmlFor="email"
