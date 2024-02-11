@@ -31,7 +31,7 @@ const Setting = () => {
   },[])
 
   if(loading){
-    return <div>Loading...</div>
+    return <div className="mt-12 font-semibold text-xl items-center">Updating Account...</div>
   }
   return (
     <div className="container min-h-screen max-h-full">
@@ -144,7 +144,7 @@ const Setting = () => {
         <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b mb-[5rem] ">
           <button
              onClick={() => {
-              setModalOpen(true);
+              setModalOpen(!modelOpen);
             }}
             className="bg-[#FEC013] text-black active:bg-yellow-500 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none hover:bg-yellow-400 focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
           >
@@ -152,7 +152,7 @@ const Setting = () => {
           </button>
         </div>
       </div>
-      {modelOpen && (<SettingModal setModalOpen={setModalOpen} account={account}/>)}
+      {modelOpen && (<SettingModal setModalOpen={setModalOpen} setAccount={setAccount} account={account} setLoading={setLoading}/>)}
     </div>
   );
 };

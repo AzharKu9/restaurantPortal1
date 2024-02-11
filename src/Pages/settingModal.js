@@ -1,14 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 
 
-const SettingModal = ({ setModalOpen , account}) => {
+const SettingModal = ({ setModalOpen , account, setLoading, setAccount}) => {
   
   const { userToken } = useContext(AuthContext)
-
   const formik = useFormik({
     initialValues: {
       restaurantName: account?.restaurantName || "",
@@ -38,6 +37,7 @@ const SettingModal = ({ setModalOpen , account}) => {
     }),
     onSubmit: async (values) => {
       try {
+        setLoading(true)
         // Create FormData object for handling file upload
         const formData = new FormData();
         formData.append("restaurantName", values.restaurantName);
@@ -47,9 +47,9 @@ const SettingModal = ({ setModalOpen , account}) => {
         formData.append("restaurantEmail", values.restaurantEmail);
         formData.append("image", values.image);
         const response = await fetch(
-          "http://localhost:3000/api/add/addresturant",
+          "http://localhost:3000/api/add/updaterestaurant",
           {
-            method: "POST",
+            method: "PUT",
             headers: {
               authToken: userToken,
             },
@@ -57,21 +57,27 @@ const SettingModal = ({ setModalOpen , account}) => {
           }
         );
 
-        const data = await response.json();
+        const data = await response.json()
+        console.log("formData", formData);
+        console.log("value", values);
         if (data.success) {
           toast.success(data.message);
           formik.resetForm();
+          setLoading(false)
+          setModalOpen(false)
+          setAccount(data.restaurant)
         } else {
           toast.error(data.message || "Failed to create restaurant.");
+          setModalOpen(false)
         }
       } catch (error) {
         console.log(error);
         console.error("Error creating restaurant:", error);
+        setModalOpen(false)
         // Log the specific error message from the server (if available)
       }
     },
   });
-
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">

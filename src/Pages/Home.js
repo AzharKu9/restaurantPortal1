@@ -58,7 +58,7 @@ const Home = () => {
 
     </div>
       <hr className='mb-6'></hr>
-      <div className='flex flex-wrap'>
+      <div className='flex flex-wrap justify-center w-full'>
         <div className='h-[5%] w-[26%] my-2 mx-4 border-2 border-solid border-[#FEC013] rounded-md p-4'>
           <h1 className='text-sm font-semibold'>Total Order</h1>
           <span className='text-3xl font-bold text-[#FEC013]'>50 Order</span>
