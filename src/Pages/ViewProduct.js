@@ -76,7 +76,7 @@ const ViewProduct = () => {
             return (
               <div
                 key={index}
-                className="h-1/3 w-[30%] mt-4 mx-3 rounded-md shadow-lg shadow-gray-400"
+                className="h-1/3 w-full sm:w-[50%] md:w-[50%] lg:w-[30%] mt-4 mx-3 rounded-md shadow-lg shadow-gray-400"
               >
                 <img
                    style={{ height: '280px' , width:"100%" }}
@@ -106,13 +106,13 @@ const ViewProduct = () => {
                       setModalOpen(true);
                       setFoodItem(item);
                     }}
-                    className="px-4 py-2 m-2 text-base font-medium bg-[#FEC013] hover:bg-[#ffd04f] rounded flex flex-row items-center"
+                    className="px-4 py-2 m-2 text-sm md:text-base font-medium bg-[#FEC013] hover:bg-[#ffd04f] rounded flex flex-row items-center"
                   >
                     <FaEdit className="mr-2" /> Update
                   </button>
                   <button
                     onClick={() => handleDelete(item._id)}
-                    className="px-4 py-2 m-2 text-base font-medium bg-[#FEC013] hover:bg-[#ffd04f] rounded flex flex-row items-center"
+                    className="px-4 py-2 m-2 text-sm md:text-base font-medium bg-[#FEC013] hover:bg-[#ffd04f] rounded flex flex-row items-center"
                   >
                     <IoTrashBin className="mr-2" /> Delete
                   </button>

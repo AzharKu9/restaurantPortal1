@@ -3,12 +3,25 @@ import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { Skeleton } from "antd";
 
-
 const OrderDetailModal = ({ setIsModal, order, setOrder, oneItem}) => {
-  console.log("OneItem",oneItem);
   const [loading, setLoading] = useState(false);
   const { userToken } = useContext(AuthContext);
 
+  // Format Data
+  function formatDateTime(dateString) {
+    const options = {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      timeZoneName: 'short',
+    };
+  
+    const formattedDateTime = new Date(dateString).toLocaleString('en-US', options);
+    return formattedDateTime;
+  }
+  
   const updateOrder = async (orderNo, resturantAuth, status) => {
     try {
       setLoading(true)
@@ -38,9 +51,11 @@ const OrderDetailModal = ({ setIsModal, order, setOrder, oneItem}) => {
       throw error;
     }
   };
+
   if(loading){
-    return <div>Loading...</div>
+    return <div className="text-lg font-semibold text-center">Loading...</div>
   }
+
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mt-16">
@@ -89,7 +104,7 @@ const OrderDetailModal = ({ setIsModal, order, setOrder, oneItem}) => {
                             Status: {oneItem.orderDetails[0].status}
                           </h1>
                           <h1 className="pt-1">
-                            Order Recive Time: {oneItem.createdAt}
+                            Order Recive Time: {formatDateTime(oneItem.createdAt)}
                           </h1>
                         </div>
                         <div className="flex flex-wrap">

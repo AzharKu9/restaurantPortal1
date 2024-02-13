@@ -34,10 +34,12 @@ const ChartConfig = () => {
       {
         label: "Sale",
         data: [200, 300, 400],
+        backgroundColor:"#FEC013"
       },
       {
         label: "Revenue",
         data: [50, 70, 90],
+        backgroundColor:"gray"
       },
     ],
   };
@@ -68,7 +70,7 @@ const ChartConfig = () => {
     datasets: [
       {
         data: [30, 50, 20],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+        backgroundColor: ["#FEC013", "gray", "lightgray"],
         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
       },
     ],
