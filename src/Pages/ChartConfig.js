@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
-const ChartConfig = () => {
+const ChartConfig = ({pendingCount, rideCount, length, totalOrderAmount, dishes}) => {
   useEffect(() => {
     return () => {
       // Cleanup: Destroy the chart instance
@@ -32,13 +32,13 @@ const ChartConfig = () => {
     ],
     datasets: [
       {
-        label: "Sale",
-        data: [200, 300, 400],
+        label: "Pending",
+        data: [pendingCount],
         backgroundColor:"#FEC013"
       },
       {
-        label: "Revenue",
-        data: [50, 70, 90],
+        label: "Completed",
+        data: [rideCount],
         backgroundColor:"gray"
       },
     ],
@@ -66,10 +66,10 @@ const ChartConfig = () => {
   // *********************** DOUGHNUT CHARTS **********************
 
   const data = {
-    labels: ["Label 1", "Label 2", "Label 3"],
+    labels: ["Total Order", "Total Earning", "Dishes"],
     datasets: [
       {
-        data: [30, 50, 20],
+        data: [length, totalOrderAmount, dishes],
         backgroundColor: ["#FEC013", "gray", "lightgray"],
         hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
       },

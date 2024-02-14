@@ -10,17 +10,18 @@ import ChartConfig from "./ChartConfig";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
+import { Skeleton } from "antd";
 const Home = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const { userToken } = useContext(AuthContext);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [length, setLength] = useState(""); 
   const [totalOrderAmount, setTotalOrderAmount] = useState(0)
-  const [peningCount, setPendingCount] = useState(0)
+  const [pendingCount, setPendingCount] = useState(0)
   const [rideCount, setRideCount] = useState(0)
-
+  const [dishes, setDishes] = useState(0)
   const handleStartDateChange = (date) => {
     setStartDate(date);
   };
@@ -33,6 +34,7 @@ const Home = () => {
     console.log("Refresh clicked!");
   };
 
+  // Calculate Total Amount
   const totalAmount = (response) =>{
     const totalAmount = response.allOrder.reduce((acc, order) => {
       const orderAmount = parseFloat(order.totalAmount);
@@ -41,18 +43,22 @@ const Home = () => {
     setTotalOrderAmount(totalAmount)
   }
 
-  const calculateOrder = (status) => {
-    status.orderWithStatus.forEach((order) => {
+  //  calculate Order status 
+  const calculateOrder = (response) => {
+    let pend = 0;
+    let compl = 0;
+    response?.orderWithStatus?.forEach((order) => {
       order.orderDetails.forEach((item) => {
-        if (item.status === 'pending') {
-          setPendingCount(peningCount+1);
-        } else if (item.status === 'ride' || item.status === 'picked') {
-          setRideCount(rideCount+1);
+        if (item.status === "pending") {
+          pend++;
+        } else if (item.status === "ride" || item.status === "picked") {
+          compl++;
         }
       });
     });
+    setPendingCount(pend);
+    setRideCount(compl);
   };
-  
   
 
   const fetchRestaurant = async () => {
@@ -66,9 +72,10 @@ const Home = () => {
       const response = await res.json();
       if (response.success) {
         setLength(response.allOrder.length)
-        setData(response.allOrder.foodDetails)
+        setDishes(response.dishesCount)
+        // setData(response.allOrder.foodDetails)
         totalAmount(response)
-        calculateOrder(response.orderWithStatus)
+        calculateOrder(response)
         setLoading(false)
       } else {
         setLoading(false);
@@ -81,11 +88,12 @@ const Home = () => {
  
   useEffect(() => {
     fetchRestaurant();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
 
   if (isLoading) {
-    return <div className="text-lg m-12 font-semibold">Loading...</div>;
+    return  <Skeleton paragraph={{ rows: 16 }} />
   }
 
   return (
@@ -135,7 +143,7 @@ const Home = () => {
         </div>
         <div className="h-[5%] w-[100%] md:w-[27%] my-2 mx-4 border-2 border-solid border-[#FEC013] rounded-md p-4">
           <h1 className="text-sm font-semibold">Total Pending Order</h1>
-          <span className="text-3xl font-bold text-[#FEC013]">{peningCount} Orders</span>
+          <span className="text-3xl font-bold text-[#FEC013]">{pendingCount} Orders</span>
           <MdOutlinePendingActions className="text-[#FEC013] text-3xl float-right" />
         </div>
         <div className="h-[5%] w-[100%] md:w-[27%] my-2 mx-4 border-2 border-solid border-[#FEC013] rounded-md p-4">
@@ -145,12 +153,12 @@ const Home = () => {
         </div>
         <div className="h-[5%] w-[100%] md:w-[27%] my-2 mx-4 border-2 border-solid border-[#FEC013] rounded-md p-4">
           <h1 className="text-sm font-semibold">Total Active Dishes</h1>
-          <span className="text-3xl font-bold text-[#FEC013]">15 Orders</span>
+          <span className="text-3xl font-bold text-[#FEC013]">{dishes} Dishes</span>
           <MdFoodBank className="text-[#FEC013] text-3xl float-right" />
         </div>
       </div>
 
-      <ChartConfig />
+      <ChartConfig pendingCount={pendingCount} rideCount={rideCount} length={length}  totalOrderAmount={totalOrderAmount} dishes={dishes}/>
     </div>
   );
 };
