@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 
 const SettingModal = ({ setModalOpen , account, setLoading, setAccount}) => {
-  
+
   const { userToken } = useContext(AuthContext)
   const formik = useFormik({
     initialValues: {
@@ -58,8 +58,6 @@ const SettingModal = ({ setModalOpen , account, setLoading, setAccount}) => {
         );
 
         const data = await response.json()
-        console.log("formData", formData);
-        console.log("value", values);
         if (data.success) {
           toast.success(data.message);
           formik.resetForm();

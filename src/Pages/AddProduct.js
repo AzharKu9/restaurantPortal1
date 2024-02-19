@@ -6,6 +6,7 @@ import {toast } from 'react-toastify';
 
 const AddProduct = () => {
 const  {userToken} = useContext(AuthContext)
+const [loading, setLoading] = React.useState(false)
   const formik = useFormik({
     initialValues: {
       foodTitle: '',
@@ -33,7 +34,7 @@ const  {userToken} = useContext(AuthContext)
         formData.append('foodOffer', values.foodOffer);
         formData.append('price', values.price);
         formData.append('image', values.image);
-        
+        setLoading(true)
         const response = await fetch('http://localhost:3000/api/add/addfood', {
           method: 'POST',
           headers: {
@@ -47,6 +48,7 @@ const  {userToken} = useContext(AuthContext)
         if (data.success) {
           toast.success(data.message);
           formik.resetForm()
+          setLoading(false)
 
         } else {
           toast.error(data.message || 'Failed to add food.');
@@ -54,10 +56,15 @@ const  {userToken} = useContext(AuthContext)
       } catch (error) {
         console.log(error);
         console.error('Error adding food:', error);
+        setLoading(false)
         // Log the specific error message from the server (if available)
       }
     },
   });
+
+  if(loading){
+    return <div className='text-xl m-8'>Loading...</div>
+  }
 
   return (
     <div className='container  min-h-screen max-h-full'>

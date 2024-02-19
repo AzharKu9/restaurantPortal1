@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { toast } from "react-toastify";
 // import { MdOutlineRemoveShoppingCart } from "react-icons/md";
 import { Skeleton } from "antd";
 import { MdOutlineAddShoppingCart } from "react-icons/md";

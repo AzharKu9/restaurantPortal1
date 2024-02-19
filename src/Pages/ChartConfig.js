@@ -2,7 +2,13 @@ import React, { useEffect } from "react";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import Chart from "chart.js/auto";
 
-const ChartConfig = ({pendingCount, rideCount, length, totalOrderAmount, dishes}) => {
+const ChartConfig = ({
+  pendingCount,
+  rideCount,
+  length,
+  totalOrderAmount,
+  dishes,
+}) => {
   useEffect(() => {
     return () => {
       // Cleanup: Destroy the chart instance
@@ -34,12 +40,12 @@ const ChartConfig = ({pendingCount, rideCount, length, totalOrderAmount, dishes}
       {
         label: "Pending",
         data: [pendingCount],
-        backgroundColor:"#FEC013"
+        backgroundColor: "#FEC013",
       },
       {
         label: "Completed",
         data: [rideCount],
-        backgroundColor:"gray"
+        backgroundColor: "gray",
       },
     ],
   };

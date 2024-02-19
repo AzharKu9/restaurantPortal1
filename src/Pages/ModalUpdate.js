@@ -1,11 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from 'react-toastify';
 
 const ModalUpdate = ({ setModalOpen, foodItem }) => {
-  
   const { userToken } = useContext(AuthContext)
   const initialValues = {
     foodTitle: foodItem.foodTitle || "",

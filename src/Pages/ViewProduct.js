@@ -35,7 +35,6 @@ const ViewProduct = () => {
       }
     } catch (error) {
       console.error("Error fetching food:", error);
-      toast.error("Failed to fetch food items. Please try again.");
     }
   };
   useEffect(() => {
